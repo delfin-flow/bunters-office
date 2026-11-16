@@ -65,6 +65,17 @@ for the auto-loaded name (D14/D15). **Acceptance:** every script is reachable fr
 asks a model to do arithmetic. Met 2026-11-16. **Not yet done:** distribution as installable skill packages
 (the marketplace question), and a skill for the *secondary user* flow once S5 exists.
 
+## S17 — Named pipelines, document import, secrets and rotation ✅ (v0, v0.2.0)
+
+`charters/pipelines.md` names five flows (collect, import, secrets, document, bundle) with their invariants;
+three skills implement the new ones (`import-document`, `handle-secrets`, `produce-document`);
+`store/secrets-rotation.csv` is the rotation register, checked by `status.sh` (overdue, due-soon, cannot-rotate)
+and carried into the bundle as dates; `scripts/document-export.sh` renders one readable, printable
+`HANDOVER.md` from the record with tickable checklists. **Acceptance:** a document-shaped input has a
+described path with quarantine and verification; rotation cannot silently lapse; the readable document is
+generated, not written by hand — verified 2026-11-16/17 on a sample record. **Not yet done:** no real imported
+document has been run through P1, and no participant has followed the generated document (that is S5).
+
 ## S3 — First-run detection and collection modes ⬜
 
 The agent must detect template / fresh / in-progress and ask **how** the person wants to give data before

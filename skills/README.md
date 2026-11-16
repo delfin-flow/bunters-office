@@ -14,6 +14,9 @@ cannot be trusted to compute a checksum. Each does what it is good at.
 | [`export-bundle/`](export-bundle/SKILL.md) | the record has to travel (secondary user, solicitor, safe box) |
 | [`update-workspace/`](update-workspace/SKILL.md) | the owner asks, or a session is old enough that an update is worth proposing |
 | [`run-drill/`](run-drill/SKILL.md) | the record is complete enough that a stranger could try it |
+| [`import-document/`](import-document/SKILL.md) | the person already has a document describing their business (often written by their own assistant) |
+| [`handle-secrets/`](handle-secrets/SKILL.md) | a credential appears anywhere — and on every rotation review |
+| [`produce-document/`](produce-document/SKILL.md) | they want a readable, printable version to follow or hand over |
 
 **People rarely run these scripts themselves.** They say what they want; the assistant runs the script and
 translates the output into plain language — including when the answer is "this is out of date and that is

@@ -145,6 +145,36 @@ else
 fi
 
 note ""
+note "-- rotation (store/secrets-rotation.csv) --"
+rot="$STORE/secrets-rotation.csv"
+if [ -f "$rot" ]; then
+  n=0; overdue=0
+  while IFS=, read -r service locator last_rot policy next_due owner method notes; do
+    [ "$service" = "service" ] && continue
+    [ -z "${service// }" ] && continue
+    n=$((n+1))
+    case "$service$locator$notes" in *EXAMPLE*) note "  EXAMPLE row still present — replace it with the real services"; problems=$((problems+1)); continue;; esac
+    due=$next_due
+    if [ -z "${due// }" ] && [ -n "${last_rot// }" ] && [ -n "${policy// }" ]; then
+      due=$(date -d "$last_rot +$policy months" +%F 2>/dev/null || true)
+    fi
+    if [ -z "${due// }" ]; then
+      note "  NO DUE DATE  $service — set last_rotated + policy_months, or say it cannot be rotated"
+      problems=$((problems+1)); continue
+    fi
+    days=$(( ( $(date -d "$due" +%s 2>/dev/null || date +%s) - $(date +%s) ) / 86400 ))
+    if [ "$days" -lt 0 ]; then
+      note "  OVERDUE      $service — was due $due ($(( -days )) days ago)"; overdue=$((overdue+1)); problems=$((problems+1))
+    elif [ "$days" -le 30 ]; then
+      note "  DUE SOON     $service — $due (in $days days)"
+    fi
+  done < "$rot"
+  note "  $n row(s), $overdue overdue"
+else
+  note "  no rotation register — create store/secrets-rotation.csv (skills/handle-secrets)"
+fi
+
+note ""
 note "-- local adaptations --"
 if [ -f "$STORE/adaptations.md" ]; then
   ad=$(grep '^## ' "$STORE/adaptations.md" 2>/dev/null | grep -vc '^## YYYY-' || true); ad=${ad:-0}

@@ -46,6 +46,7 @@ setup_record() { # $1 = workspace root
   [ -f store/inventory/assets.csv ]   || cp templates/inventory/assets.csv   store/inventory/assets.csv
   [ -f store/inventory/dependencies.md ] || cp templates/inventory/dependencies.md store/inventory/dependencies.md
   [ -f store/procedures/provider-step.md ] || cp templates/procedures/provider-step.md store/procedures/provider-step.md
+  [ -f store/secrets-rotation.csv ] || cp templates/secrets-rotation.csv store/secrets-rotation.csv
 
   # The package is its own repository: versioned, changelogged, private (charters/package.md).
   if [ ! -d store/.git ]; then

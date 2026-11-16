@@ -3,6 +3,19 @@
 Newest first. Versions are compared against the upstream repository by `scripts/version.sh`; updating is
 `scripts/update.sh` (fast-forward only, never touches `store/`).
 
+## 0.2.0 — 2026-11-17
+
+- **Pipelines named** (`charters/pipelines.md`): collect, import, secrets & rotation, document, bundle — with
+  invariants across all of them.
+- **Import path** (`skills/import-document`): an existing document (often written by the person's own
+  assistant) is untrusted input; claims are verified with the person, credentials are quarantined, gaps are
+  listed.
+- **Secrets and rotation** (`skills/handle-secrets`, `store/secrets-rotation.csv`): locators only, free
+  open-source vault suggestions, plaintext credential = exposed = rotate; `status.sh` reports overdue,
+  due-soon and cannot-rotate; the bundle carries rotation dates.
+- **Readable document** (`scripts/document-export.sh`, `templates/document/HANDOVER.md`): one printable
+  Markdown handover file generated from the record, with tickable checklists for the first day and week.
+
 ## 0.1.0 — 2026-11-16
 
 First version. The record has a shape; the tools run; nothing touches an account.

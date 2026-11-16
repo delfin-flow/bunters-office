@@ -123,6 +123,22 @@ STUB
 
 [ -f "$STORE/CHANGELOG.md" ] && cp "$STORE/CHANGELOG.md" "$STAGE/CHANGELOG.md"
 
+# Rotation register: dates and locators only — never a value (charters/secrets.md).
+if [ -f "$STORE/secrets-rotation.csv" ]; then
+  {
+    echo "# Rotation register — when each credential was last changed"
+    echo
+    echo "Dates only. The values live in the owner's vault; the locator column says where."
+    echo
+    echo "| service | locator | last rotated | next due | policy (months) | method |"
+    echo "|---|---|---|---|---|---|"
+    awk -F, 'NR>1 && $1!="" && $1!~/EXAMPLE/ {printf "| %s | %s | %s | %s | %s | %s |\n", $1,$2,($3==""?"never":$3),($5==""?"?":$5),($4==""?"?":$4),$7}' "$STORE/secrets-rotation.csv"
+    echo
+    echo "If a credential was ever written in plain text, it is treated as exposed and rotated — see"
+    echo "the workspace skill: handle-secrets."
+  } > "$STAGE/recovery/rotation.md"
+fi
+
 if [ -f "$STORE/verification-log.csv" ]; then cp "$STORE/verification-log.csv" "$STAGE/evidence/verification-log.csv"; else
   printf 'entry,what_was_checked,when,by_whom,result,evidence\n' > "$STAGE/evidence/verification-log.csv"
 fi

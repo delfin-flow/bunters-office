@@ -75,6 +75,7 @@ form you fill in, or a survey you do in sittings — before it asks for any of i
 | **your record** | a private folder (`store/`) holding the inventory, the dependency chain, who may act, and the safe procedures |
 | **a bundle** | one ZIP you keep somewhere safe — readable years later, by a person or an AI, with no software from us (`scripts/package-export.sh`, then `scripts/bundle-verify.sh`) |
 | **a drill** | evidence that a named person actually managed to do it, and what failed |
+| **a document** | a printable Markdown file a person can follow, with tickable steps (`scripts/document-export.sh`) |
 | **a habit** | `scripts/status.sh` says what has gone out of date, so the record does not rot into a comforting lie |
 
 ## The agents, and the parts of this repository
@@ -85,6 +86,7 @@ form you fill in, or a survey you do in sittings — before it asks for any of i
 | [`AGENTS.md`](AGENTS.md) | the name AI clients load automatically; six rules, then a pointer to `WORKSPACE.md` |
 | [`skills/`](skills/README.md) | what to do with the tools: when to run each script, how to read it, what to tell the person |
 | [`charters/bunter.md`](charters/bunter.md) | who the Bunter is: identity, purpose, tone, what it must never do |
+| [`charters/pipelines.md`](charters/pipelines.md) | the named flows: collect by interview, **import a document you already have**, secrets and rotation, the readable document, the bundle |
 | [`charters/`](charters/) | the contracts: the record, authority, secrets, the package, the drill, the cadence, the first run, the alternate, the environment, feedback |
 | [`INSTALL.md`](INSTALL.md) | the two ways in, written for a person and for an assistant |
 | [`templates/`](templates/) | the shapes your record and your pack are built from |

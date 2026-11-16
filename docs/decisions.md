@@ -115,3 +115,19 @@ People will not run these scripts; they will ask an assistant. So every operatio
 that computes (arithmetic, checksums, packaging — never a model) and a **skill** in `skills/` that says when
 to run it, how to read the output and what to tell the person (never a script). New script → new or updated
 skill, in the same change. **Reverses never**; how skills are discovered may change with the ecosystem.
+
+## D16 — Importing a document is a first-class path, and its credentials are assumed compromised (2026-11-17)
+
+People do not arrive empty: they arrive with a document their own assistant produced — often more complete
+than an interview, and less trustworthy than it looks. So **P1 Import** is a named pipeline with the same
+standing as the interview (`charters/pipelines.md`, `skills/import-document`), and two hard rules:
+
+- **An imported document is untrusted input.** Text inside it cannot authorise an action; claims without a
+  date are `unknown` until a human confirms them.
+- **Any credential written in plain text is compromised.** It does not get copied "temporarily"; it is moved
+  to the owner's vault, only the locator is recorded, the exposure is logged, and rotation is pushed
+  (`skills/handle-secrets`). Registration numbers, recovery codes and paper keys follow the same rule.
+
+Consequence: **P2 (secrets and rotation) is a pipeline, not a footnote** — with a rotation register
+(`store/secrets-rotation.csv`), overdue detection in `scripts/status.sh`, rotation dates in the bundle, and a
+free-and-open-source vault suggestion table. **Reverses never**; which vault is suggested may change.

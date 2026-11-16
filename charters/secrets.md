@@ -48,6 +48,13 @@ make an agent safe. Human approval is required for anything destructive or conse
 - Two copies in two places, one of them offline. A single ZIP is a single point of failure *and* a
   single breach.
 
+## Rotation is a register, not a good intention
+
+`store/secrets-rotation.csv` — `service, locator, last_rotated, policy_months, next_due, owner, method,
+notes`. `scripts/status.sh` computes what is overdue; the bundle carries the *dates* (never values). The
+operating skill is `skills/handle-secrets`; it also covers the case that matters most: **a credential that
+was ever written in plain text is treated as exposed and rotated**, not filed away.
+
 ## Rotation and backups (the honest part)
 
 Rotation is a reminder and a checklist, not an automation in v0: the vault rotates, the record updates

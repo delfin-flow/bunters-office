@@ -11,6 +11,7 @@ It has five parts, and each part answers one question.
 | Authority map | `store/authority-map.md` | who may legally do what, and where the stop point is |
 | Procedures | `store/procedures/*.md` | the safe step-by-step for one thing, written for someone who was not there |
 | Drill log | `store/drill/*.md` | what a named alternate actually managed to do, and what failed |
+| Rotation register | `store/secrets-rotation.csv` | when each credential was last changed, when it is next due, and how |
 
 ## Inventory columns (accounts.csv)
 
