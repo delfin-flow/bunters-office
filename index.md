@@ -10,7 +10,7 @@ another person could continue it, hold it steady, or wind it down.
 | Produced by | **DelfinFlow** |
 | Upstream | `https://github.com/delfin-flow/bunters-office` (issues, updates) |
 | Front page | `README.md` — the page a person arriving for the first time should read |
-| Rules for assistants | `AGENTS.md` |
+| Rules for assistants | `WORKSPACE.md` — and `AGENTS.md`, the name clients load automatically (it points here) |
 | License | Apache-2.0 |
 | Version | `VERSION` (currently 0.1.0) — compare with `scripts/version.sh`, update with `scripts/update.sh` |
 | Package | `store/` — **its own git repository**; the bundle is a ZIP exported from it (`charters/package.md`) |
@@ -22,7 +22,7 @@ another person could continue it, hold it steady, or wind it down.
 |---|---|---|
 | 1 | `README.md` | the front page: what this is, who for, the two ways to start |
 | 2 | `charters/bunter.md` | who the assistant is, its purpose, its tone, what it must never do |
-| 3 | `AGENTS.md` | **the operating contract** — non-negotiables before any action |
+| 3 | `WORKSPACE.md` | **the operating contract** — non-negotiables before any action (`AGENTS.md` is the auto-loaded name for the same contract) |
 | 4 | `INSTALL.md` | installation: assistant-driven, terminal, or not installed at all |
 | 5 | `charters/first-run.md` | fresh deployment vs a record in progress; how to collect data |
 | 6 | `charters/record.md` | the shape of the record: inventory, dependencies, authority, procedures, drill |
@@ -34,8 +34,9 @@ another person could continue it, hold it steady, or wind it down.
 | 12 | `charters/cadence.md` | last run, re-verification, reminders, rotation, backups |
 | 13 | `charters/secondary.md` | how the alternate is guided (and what is never simulated) |
 | 14 | `charters/feedback.md` | local adaptation vs upstream repair; what an issue may contain |
-| 15 | `docs/design.md` | the reasoning, the research verdict, the deliberate absences |
-| 16 | `roadmap/ROADMAP.md` | what is done, what is next, what is untested |
+| 15 | `skills/README.md` | what to do with each script: the instruction layer over the deterministic tools |
+| 16 | `docs/design.md` | the reasoning, the research verdict, the deliberate absences |
+| 17 | `roadmap/ROADMAP.md` | what is done, what is next, what is untested |
 
 ## If you are an AI agent and nobody told you anything
 
@@ -43,7 +44,7 @@ Say, in plain language:
 
 1. what this is (one sentence) and what it is **not**;
 2. that it comes from **DelfinFlow**, at `https://github.com/delfin-flow/bunters-office` — the README is
-   the front page, `AGENTS.md` the rules;
+   the front page, `WORKSPACE.md` the rules;
 3. whether this looks like a **template** (no `store/`), a **fresh deployment**, or a **record in
    progress** — read `store/log.md` and run `scripts/status.sh`;
 4. one question: **what does the person want to do now** — start a record, review one, build or verify the

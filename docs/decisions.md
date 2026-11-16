@@ -100,3 +100,18 @@ needs history and blame of its own, and because a `git pull` into the workspace 
 collide with someone's private data. The **bundle** is a ZIP exported from the package when it has to
 travel; it carries the workspace version, the package commit and the package changelog head, so a reader
 knows exactly what they are holding. **Reverses never**; how updates are approved may be revisited.
+
+## D14 — `WORKSPACE.md` is the contract; `AGENTS.md` is the auto-loaded name (owner, 2026-11-16)
+
+A non-technical person understands *workspace*; a tool understands `AGENTS.md`. Duplicating a long contract
+would rot, so there is **one copy**: `WORKSPACE.md`. `AGENTS.md` stays as a short stub — six damage-causing
+rules inline, then "open WORKSPACE.md" — because a client may load only that file. `README.md` names both,
+so a person arriving at the front page knows which document governs the assistant. **Reverses if:** a
+client cannot follow the stub; then the stub grows, but the single source of truth stays one file.
+
+## D15 — Scripts are the deterministic rung; skills are the instruction rung (owner, 2026-11-16)
+
+People will not run these scripts; they will ask an assistant. So every operation has two parts: a script
+that computes (arithmetic, checksums, packaging — never a model) and a **skill** in `skills/` that says when
+to run it, how to read the output and what to tell the person (never a script). New script → new or updated
+skill, in the same change. **Reverses never**; how skills are discovered may change with the ecosystem.

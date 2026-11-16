@@ -34,7 +34,7 @@ those platforms** — that is the honest state, and `docs/decisions.md` D10 says
 
 ## S11 — Plain-language pass for people who are not IT ⬜
 
-`INSTALL.md`, `README.md`, `AGENTS.md`, `charters/first-run.md` and the pack's `ai-guide.md` now assume a
+`INSTALL.md`, `README.md`, `WORKSPACE.md`, `charters/first-run.md` and the pack's `ai-guide.md` now assume a
 non-technical reader. **Acceptance:** someone who has never used a terminal completes installation and the
 first record section without asking what a word means — or the words are changed until they do.
 
@@ -55,6 +55,15 @@ maintainers (tag + changelog entry).
 package commit and whether it was dirty. Deleting the tracked template marker removed the old
 dirty-tree trap. **Acceptance:** install → session → commit → export shows the package commit in the
 manifest — verified 2026-11-16.
+
+## S16 — The skill layer over the scripts ✅ (v0)
+
+`skills/` holds five skills — start a record, check freshness, export a bundle, update the workspace, run a
+drill — each stating when to use it, which script it calls, how to read the output and what to say to a
+non-technical person (`skills/README.md`). `WORKSPACE.md` is the single contract with `AGENTS.md` as a stub
+for the auto-loaded name (D14/D15). **Acceptance:** every script is reachable from a skill, and no skill
+asks a model to do arithmetic. Met 2026-11-16. **Not yet done:** distribution as installable skill packages
+(the marketplace question), and a skill for the *secondary user* flow once S5 exists.
 
 ## S3 — First-run detection and collection modes ⬜
 
@@ -107,7 +116,7 @@ problem. Verified by building the pack and reading it — 2026-11-16.
 
 ## S8 — Upstream loop ⬜
 
-`index.md` and `AGENTS.md` describe the issue-first rule; the repository is not yet published. **Acceptance:**
+`index.md` and `WORKSPACE.md` describe the issue-first rule; the repository is not yet published. **Acceptance:**
 the public repo exists with an issue template that asks for version, file and expected/actual — and no
 personal data.
 

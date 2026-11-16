@@ -24,7 +24,7 @@ would help the next person goes upstream as an issue.
 ## Reporting — what an issue must contain
 
 Search the existing issues first: the gap may already be reported, fixed, or deliberately out of scope
-(`AGENTS.md` → *Borrowing from upstream*). Then use the compatibility form
+(`WORKSPACE.md` → *Borrowing from upstream*). Then use the compatibility form
 (`.github/ISSUE_TEMPLATE/compatibility.yml`), which asks for:
 
 - what you tried to do, in one sentence, and what happened instead;

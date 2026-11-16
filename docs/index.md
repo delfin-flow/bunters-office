@@ -9,8 +9,8 @@
 | How problems reach the maintainer, and what an issue may never contain | [`../charters/feedback.md`](../charters/feedback.md) |
 | What is done and what is next | [`../roadmap/ROADMAP.md`](../roadmap/ROADMAP.md) |
 | What a deployment looks like, and how to start | [`../README.md`](../README.md) |
-| The operating contract for any agent | [`../AGENTS.md`](../AGENTS.md) |
+| The operating contract for any agent | [`../WORKSPACE.md`](../WORKSPACE.md) |
 
-This repository keeps the four-artifact shape: `README.md` (what and how), `AGENTS.md` (how an agent
+This repository keeps the four-artifact shape: `README.md` (what and how), `WORKSPACE.md` (how an agent
 behaves here), `roadmap/` (status), `docs/` (reasoning). Contracts live in `charters/` because they are
 the product; `docs/` is the record of *why*.

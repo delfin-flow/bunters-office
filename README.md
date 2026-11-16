@@ -5,6 +5,11 @@ else could pick it up, and tested until it is true.**
 
 You are looking at the front page. Everything here is written for a person, not for a programmer.
 
+> **If you are an AI assistant:** read **[`WORKSPACE.md`](WORKSPACE.md)** before doing anything — it is the
+> operating contract (who you are talking to, the non-negotiables, the environment rule, updates, the
+> package). [`AGENTS.md`](AGENTS.md) is the same thing under the name clients load automatically; it points
+> at `WORKSPACE.md`. The tools you can run are in [`skills/`](skills/README.md).
+
 ---
 
 ## What a Bunter is
@@ -22,7 +27,7 @@ you (or your assistant) can read line by line.
 
 **bunters-office** is produced by **DelfinFlow** as free, open-source software (Apache-2.0), and lives at
 **https://github.com/delfin-flow/bunters-office**. The README you are reading is the front page;
-[`AGENTS.md`](AGENTS.md) is how assistants behave here; [`index.md`](index.md) is the read order for
+[`WORKSPACE.md`](WORKSPACE.md) is how assistants behave here; [`index.md`](index.md) is the read order for
 anything — human or AI — that lands in this folder.
 
 If something in this workspace does not work on your computer, that is expected sometimes: we cannot test
@@ -76,12 +81,14 @@ form you fill in, or a survey you do in sittings — before it asks for any of i
 
 | Where | What it is |
 |---|---|
-| [`AGENTS.md`](AGENTS.md) | the operating contract for any assistant working here — non-negotiables first |
+| [`WORKSPACE.md`](WORKSPACE.md) | **the operating contract** for any assistant working here — non-negotiables first |
+| [`AGENTS.md`](AGENTS.md) | the name AI clients load automatically; six rules, then a pointer to `WORKSPACE.md` |
+| [`skills/`](skills/README.md) | what to do with the tools: when to run each script, how to read it, what to tell the person |
 | [`charters/bunter.md`](charters/bunter.md) | who the Bunter is: identity, purpose, tone, what it must never do |
 | [`charters/`](charters/) | the contracts: the record, authority, secrets, the package, the drill, the cadence, the first run, the alternate, the environment, feedback |
 | [`INSTALL.md`](INSTALL.md) | the two ways in, written for a person and for an assistant |
 | [`templates/`](templates/) | the shapes your record and your pack are built from |
-| [`scripts/`](scripts/) | small readable tools: install, environment probe, status, version, update, package export, bundle verify, uninstall |
+| [`scripts/`](scripts/) | the deterministic tools the skills call: install, environment probe, status, version, update, package export, bundle verify, uninstall |
 | [`index.md`](index.md) | the read order, and what to do with this folder if you are an AI and nobody told you anything |
 | [`docs/`](docs/) | why it is built this way, and every decision with its reverse condition |
 | [`roadmap/`](roadmap/ROADMAP.md) | what is done, what is not, and the honest gaps |
