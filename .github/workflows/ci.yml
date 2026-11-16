@@ -1,0 +1,79 @@
+name: ci
+
+# No dependencies to install: this repository is Markdown and shell. The job proves that the
+# tools run, that a fresh install produces a working bundle, and that the scripts parse.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  tools:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Shell syntax
+        run: |
+          for f in scripts/*.sh; do echo "== $f"; bash -n "$f"; done
+
+      - name: Every contract, template and skill exists
+        run: |
+          set -e
+          for f in README.md WORKSPACE.md AGENTS.md INSTALL.md index.md VERSION CHANGELOG.md \
+                   docs/proposal.md docs/decisions.md docs/index.md roadmap/ROADMAP.md \
+                   charters/record.md charters/authority.md charters/secrets.md charters/package.md \
+                   charters/drill.md charters/cadence.md charters/first-run.md charters/secondary.md \
+                   charters/environment.md charters/footprint.md charters/pipelines.md charters/bunter.md \
+                   charters/feedback.md \
+                   skills/README.md skills/start-record/SKILL.md skills/check-freshness/SKILL.md \
+                   skills/export-bundle/SKILL.md skills/update-workspace/SKILL.md skills/run-drill/SKILL.md \
+                   skills/import-document/SKILL.md skills/handle-secrets/SKILL.md skills/produce-document/SKILL.md \
+                   package-skills/README.md package-skills/guide-handover/SKILL.md \
+                   package-skills/produce-document/SKILL.md package-skills/write-plainly/SKILL.md \
+                   templates/document/HANDOVER.md templates/package/README.md templates/secrets-rotation.csv \
+                   templates/store/footprint.md; do
+            test -f "$f" || { echo "missing: $f"; exit 1; }
+          done
+
+      - name: Internal links resolve
+        run: |
+          python3 - <<'PY'
+          import glob, os, re, sys
+          bad = []
+          for f in glob.glob('**/*.md', recursive=True):
+              if f.startswith('node_modules/'):
+                  continue
+              for target in re.findall(r'\]\(([^)#]+?)(?:#[^)]*)?\)', open(f).read()):
+                  if target.startswith(('http', 'mailto', '…')):
+                      continue
+                  if not os.path.exists(os.path.normpath(os.path.join(os.path.dirname(f), target))):
+                      bad.append((f, target))
+          print('broken links:', bad or 'none')
+          sys.exit(1 if bad else 0)
+          PY
+
+      - name: End to end — install, status, export, verify, uninstall
+        run: |
+          set -e
+          work=$(mktemp -d)
+          cp -a . "$work/ws"
+          cd "$work/ws"
+          rm -rf store
+          git config --global user.name "ci" >/dev/null
+          git config --global user.email "ci@example.com" >/dev/null
+          bash scripts/install.sh
+          test -f store/environment.md
+          test -d store/.git
+          bash scripts/status.sh
+          bash scripts/package-export.sh
+          bash scripts/bundle-verify.sh ../bunters-office-package.zip
+          unzip -l ../bunters-office-package.zip | grep -q 'skills/guide-handover/SKILL.md'
+          unzip -l ../bunters-office-package.zip | grep -q 'document/TEMPLATE.md'
+          if unzip -l ../bunters-office-package.zip | grep -qE 'skills/(handle-secrets|install|update-workspace)'; then
+            echo "maintenance tooling leaked into the bundle"; exit 1
+          fi
+          echo y | bash scripts/uninstall.sh
+          git -C store log --oneline | head -1

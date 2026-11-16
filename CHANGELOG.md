@@ -3,6 +3,13 @@
 Newest first. Versions are compared against the upstream repository by `scripts/version.sh`; updating is
 `scripts/update.sh` (fast-forward only, never touches `store/`).
 
+## 0.4.3 — 2026-11-17
+
+- **CI added** (`.github/workflows/ci.yml`): shell syntax, every contract/template/skill present, internal
+  links resolve, and an end-to-end run — install → status → export → verify → uninstall — including the
+  assertion that no maintenance skill leaks into a bundle. No dependencies to install; the repository is
+  Markdown and shell.
+
 ## 0.4.2 — 2026-11-17
 
 - **Project shape completed to the convention:** `docs/design.md` → **`docs/proposal.md`** (the authoritative

@@ -97,6 +97,14 @@ added" — verified 2026-11-17. **Not yet done:** no automated check that the ma
 `$HOME` before/after would prove it); the claim rests on the rules plus the register, which is why it is
 written as a permission gate rather than a guarantee.
 
+## S20 — CI, so the claims are checked by a machine ✅ (v0.4.3)
+
+`.github/workflows/ci.yml` runs on every push and pull request: shell syntax on every script, presence of
+every charter/template/skill, internal-link resolution, and an end-to-end run (install → status → export →
+verify → uninstall) that also asserts no maintenance skill leaks into a bundle. **Acceptance:** green on
+`main` with no dependency installation. **Not yet done:** no test asserts the *content* of a generated
+document or the freshness arithmetic (both are deterministic and testable; neither is tested).
+
 ## S3 — First-run detection and collection modes ⬜
 
 The agent must detect template / fresh / in-progress and ask **how** the person wants to give data before
