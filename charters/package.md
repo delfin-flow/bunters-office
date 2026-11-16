@@ -55,6 +55,31 @@ bunters-office-package/
 7. **It says where it came from.** The manifest's `origin` block and `START-HERE.md` name the repository and
    DelfinFlow, so a foreign AI can identify it and report a defect (`charters/feedback.md`).
 
+## Self-containment — what must be inside, and what must not
+
+The package must be **processible on its own**: an agent handed only the bundle must be able to understand
+the business, guide a person through a handover, adjust what changed, and produce a fresh document. So it
+carries, beside the data:
+
+| Inside the bundle | Why |
+|---|---|
+| `README.md` | what this folder is, for a person who opens it cold |
+| `START-HERE.md`, `ai-guide.md` | the first page for a human, and for a foreign AI |
+| `manifest.json` | origin (repository, producer), dates, coverage, package commit |
+| `skills/` — **only** `guide-handover`, `produce-document`, `write-plainly` | the three things needed to *use* the package |
+| `document/TEMPLATE.md` | to make a new printable document without any tooling |
+| `CHANGELOG.md`, `evidence/`, `recovery/` | provenance, proof, and where things live |
+
+**Not inside:** rotation registers and their checks, installation, version comparison, updates, the
+environment probe, freshness arithmetic, the issue-board workflow. Those are the **workspace's** job — it
+maintains and hands over, while the package *is* the thing handed over. Carrying them would make the bundle
+a stale copy of the workshop.
+
+The one dependency the package has is a **reference**: `https://github.com/delfin-flow/bunters-office`
+(produced by DelfinFlow), recorded in the manifest so anyone — human or agent — can find the method,
+report a defect, or fetch the tooling **if they ever want it**. It must never be required to read or act on
+the package.
+
 ## What the bundle is not
 
 Not authority. Not a login. Not a guarantee a provider will act. It is dated, verified instruction — and

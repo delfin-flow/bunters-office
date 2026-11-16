@@ -3,6 +3,16 @@
 Newest first. Versions are compared against the upstream repository by `scripts/version.sh`; updating is
 `scripts/update.sh` (fast-forward only, never touches `store/`).
 
+## 0.3.0 — 2026-11-17
+
+- **The package is self-contained:** bundles carry `package-skills/` (guide-handover, produce-document,
+  write-plainly), `document/TEMPLATE.md` and their own `README.md`; maintenance tooling stays in the
+  workspace (`charters/package.md`, D17).
+- **A document can be produced from a bundle**, with no repository and no tooling — consume new sources,
+  adjust the data in a working copy, fill the template.
+- **The writing rules travel with the document** (plain register, one idea per sentence, every claim dated,
+  uncertainty never upgraded, stop points named) — embedded, not referenced.
+
 ## 0.2.0 — 2026-11-17
 
 - **Pipelines named** (`charters/pipelines.md`): collect, import, secrets & rotation, document, bundle — with

@@ -131,3 +131,19 @@ standing as the interview (`charters/pipelines.md`, `skills/import-document`), a
 Consequence: **P2 (secrets and rotation) is a pipeline, not a footnote** — with a rotation register
 (`store/secrets-rotation.csv`), overdue detection in `scripts/status.sh`, rotation dates in the bundle, and a
 free-and-open-source vault suggestion table. **Reverses never**; which vault is suggested may change.
+
+## D17 — The package is self-contained; the workshop is not in it (owner, 2026-11-17)
+
+The package exists for one purpose: **contain the owner's persona and method, and the instructions needed
+to continue the business and hand it to someone else** — it is the knowledge base a later agent works from,
+years after this machine is gone. That purpose fixes its contents. So a bundle carries the data, the
+provenance, the proof, `document/TEMPLATE.md`, and **exactly three skills** (`package-skills/`: guide a
+handover, produce a document, write it plainly).
+
+Everything that *maintains* the record — rotation checks, installation, version comparison, updates, the
+environment probe, freshness arithmetic, the issue workflow — stays in the workspace. It is a different
+job, and shipping it inside a snapshot would produce a stale copy of the workshop in a drawer.
+
+The package references `https://github.com/delfin-flow/bunters-office` (produced by DelfinFlow) in its
+manifest and README so provenance and reporting work offline-ish and without the repository. **Reverses
+never**; the exact skill subset may grow if a real handover needs one more.

@@ -123,6 +123,17 @@ When the person acting is the **alternate** (not the owner), follow `charters/se
 recorded working method is applied to the alternate's problems, the owner's voice never is. Say plainly
 that you are guiding them through the owner's record, not speaking as the owner.
 
+## The package is not the workshop
+
+The **workspace** (this folder) maintains and produces. The **package** (`store/`, and any bundle from it)
+is what gets handed over: the owner's persona and working method, the accounts, the authority, the safe
+steps, the proof — plus **only** the three skills needed to work from it (`package-skills/`:
+`guide-handover`, `produce-document`, `write-plainly`).
+
+Do not put maintenance into a package: rotation checks, installation, updates, freshness arithmetic and the
+issue workflow stay here. A bundle must never require this repository — it references it, so a reader can
+find the method or report a defect (`charters/package.md`).
+
 ## Checking and updating
 
 `scripts/version.sh` compares the workspace with its upstream; `scripts/update.sh` applies an update

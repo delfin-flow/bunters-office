@@ -61,7 +61,7 @@ done
 
 STAGE_ROOT=$(mktemp -d)
 STAGE="$STAGE_ROOT/bunters-office-package"
-mkdir -p "$STAGE"/{inventory,procedures,recovery,evidence/drill}
+mkdir -p "$STAGE"/{inventory,procedures,recovery,evidence/drill,skills,document}
 
 cp "$STORE/profile.md" "$STAGE/business-overview.md"
 cp "$STORE/authority-map.md" "$STAGE/authority-map.md"
@@ -152,6 +152,19 @@ sed -e "s|{{ENTITY}}|$(esc "$ENTITY")|g" \
     -e "s|{{DRILL_LAST}}|$DRILL_LAST|g" \
     "$ROOT/templates/pack/START-HERE.md" > "$STAGE/START-HERE.md"
 cp "$ROOT/templates/pack/ai-guide.md" "$STAGE/ai-guide.md"
+
+# The package carries only the skills needed to WORK FROM IT (package-skills/): guiding a handover,
+# producing a document, writing it plainly. Rotation, install, status and updates stay in the workspace
+# (charters/package.md).
+cp -R "$ROOT/package-skills/." "$STAGE/skills/"
+cp "$ROOT/templates/document/HANDOVER.md" "$STAGE/document/TEMPLATE.md"
+
+# The package's own front page.
+sed -e "s|{{ENTITY}}|$(esc "$ENTITY")|g" \
+    -e "s|{{GENERATED_AT}}|$NOW|g" \
+    -e "s|{{WS_VERSION}}|$WS_VERSION|g" \
+    -e "s|{{PKG_COMMIT}}|${PKG_COMMIT:-unversioned}|g" \
+    "$ROOT/templates/package/README.md" > "$STAGE/README.md"
 
 cat > "$STAGE/manifest.json" <<MANIFEST
 {

@@ -76,6 +76,16 @@ described path with quarantine and verification; rotation cannot silently lapse;
 generated, not written by hand — verified 2026-11-16/17 on a sample record. **Not yet done:** no real imported
 document has been run through P1, and no participant has followed the generated document (that is S5).
 
+## S18 — A self-contained package, with a document skill that travels ✅ (v0.3.0)
+
+`package-skills/` holds the three skills a bundle carries (`guide-handover`, `produce-document`,
+`write-plainly`); `package-export.sh` copies them plus `document/TEMPLATE.md` into the bundle and writes the
+package's own `README.md`; `charters/package.md` states the contract (what is inside, what must not be).
+The document is step-shaped, never chat-shaped, and its writing rules are embedded in the bundle rather than
+referenced (`skills/write-plainly`). **Acceptance:** a bundle alone lets an agent guide a stranger and
+produce a fresh printable document; no maintenance tooling is present — verified by exporting and inspecting
+the ZIP 2026-11-17. **Not yet done:** nobody has produced a document from a bundle in the real world (S5).
+
 ## S3 — First-run detection and collection modes ⬜
 
 The agent must detect template / fresh / in-progress and ask **how** the person wants to give data before

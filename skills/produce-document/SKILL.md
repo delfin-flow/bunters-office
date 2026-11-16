@@ -20,6 +20,15 @@ Markdown file, printed or opened, read top to bottom, with steps they tick off.
    the bundle (another AI, a careful reader).
 5. Regenerate after any record change — never hand-edit the output. If the document is wrong, the record is.
 
+## Two ways to the same document
+
+| Where you are | How |
+|---|---|
+| on the owner's machine, with the record | `scripts/document-export.sh` — deterministic, fills the template from `store/` |
+| inside a **bundle**, with no repository | fill `document/TEMPLATE.md` yourself, following `skills/produce-document` *in the bundle* (the package carries that subset: guide-handover, produce-document, write-plainly) |
+
+Both produce the same shape, so a document made in a bundle years later looks like one made today.
+
 ## Rules
 
 - **No credential values**, only locators.

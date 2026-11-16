@@ -84,6 +84,7 @@ form you fill in, or a survey you do in sittings — before it asks for any of i
 |---|---|
 | [`WORKSPACE.md`](WORKSPACE.md) | **the operating contract** for any assistant working here — non-negotiables first |
 | [`AGENTS.md`](AGENTS.md) | the name AI clients load automatically; six rules, then a pointer to `WORKSPACE.md` |
+| [`package-skills/`](package-skills/README.md) | the **only** skills that travel inside a bundle — guide a handover, produce a document, write it plainly |
 | [`skills/`](skills/README.md) | what to do with the tools: when to run each script, how to read it, what to tell the person |
 | [`charters/bunter.md`](charters/bunter.md) | who the Bunter is: identity, purpose, tone, what it must never do |
 | [`charters/pipelines.md`](charters/pipelines.md) | the named flows: collect by interview, **import a document you already have**, secrets and rotation, the readable document, the bundle |

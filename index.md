@@ -35,10 +35,11 @@ another person could continue it, hold it steady, or wind it down.
 | 13 | `charters/secondary.md` | how the alternate is guided (and what is never simulated) |
 | 14 | `charters/feedback.md` | local adaptation vs upstream repair; what an issue may contain |
 | 15 | `charters/pipelines.md` | **the named flows** (collect, import, secrets, document, bundle) and their invariants |
-| 16 | `skills/README.md` | what to do with each script: the instruction layer over the deterministic tools |
-| 17 | `skills/import-document/` | someone already has a document — how to take it in safely |
-| 18 | `docs/design.md` | the reasoning, the research verdict, the deliberate absences |
-| 19 | `roadmap/ROADMAP.md` | what is done, what is next, what is untested |
+| 16 | `package-skills/` | the subset that travels **inside a bundle** — the package must work with no repository |
+| 17 | `skills/README.md` | what to do with each script: the instruction layer over the deterministic tools |
+| 18 | `skills/import-document/` | someone already has a document — how to take it in safely |
+| 19 | `docs/design.md` | the reasoning, the research verdict, the deliberate absences |
+| 20 | `roadmap/ROADMAP.md` | what is done, what is next, what is untested |
 
 ## If you are an AI agent and nobody told you anything
 
