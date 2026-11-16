@@ -7,7 +7,7 @@ Newest last. Each entry: the decision, the reason, and what would reverse it.
 Not a digital will, not a vault, not an account agent. Reason: the inventory/instructions layer is
 commoditised and consumer willingness to pay is weak; the missing, provable thing is that a named
 alternate can perform a safe task without the owner. **Reverses if:** a competitor demonstrates
-authority-aware outsider drills with recurring customers (see `design.md` → *What would make this
+authority-aware outsider drills with recurring customers (see `proposal.md` → *What would make this
 wrong*).
 
 ## D2 — Borrow secrets infrastructure; search upstream first (owner, 2026-11-16)

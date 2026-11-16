@@ -171,6 +171,23 @@ Skills per record part; a local web-form/survey capability (possibly its own reu
 candidate for a *binary*, because a browser form is one place a script stops being enough
 (`docs/decisions.md` D8). Each only after the rung below it is proven.
 
+## Handoffs — the delivery record
+
+Grouped logs, one per delivery batch (see `docs/proposal.md` §8: a log per story would repeat the same
+deviations, since the stories in a batch were delivered together).
+
+| Log | Covers | Version |
+|---|---|---|
+| [`01-v0.1.0-scaffold-and-tools.md`](handoffs/01-v0.1.0-scaffold-and-tools.md) | S1, S2, S10 | v0.1.0 |
+| [`02-v0.1.0-identity-feedback-version.md`](handoffs/02-v0.1.0-identity-feedback-version.md) | S12, S13, S14, S15, S16 | v0.1.0 |
+| [`03-v0.2.0-pipelines-import-rotation-document.md`](handoffs/03-v0.2.0-pipelines-import-rotation-document.md) | S17 | v0.2.0 |
+| [`04-v0.3.0-self-contained-package.md`](handoffs/04-v0.3.0-self-contained-package.md) | S18 | v0.3.0 |
+| [`05-v0.4.x-zero-footprint.md`](handoffs/05-v0.4.x-zero-footprint.md) | S19 | v0.4.x |
+
+Each log keeps the four sections the methodology asks for — Delivered, Decisions & deviations, Known issues,
+Hand-off to next story — and they are written at delivery time from what actually shipped, never reconstructed
+from the changelog.
+
 ## Handoffs and continuity
 
 This repository's own continuity record is `docs/decisions.md` plus this roadmap. Model handoff notes for

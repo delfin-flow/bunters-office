@@ -38,8 +38,8 @@ another person could continue it, hold it steady, or wind it down.
 | 16 | `package-skills/` | the subset that travels **inside a bundle** — the package must work with no repository |
 | 17 | `skills/README.md` | what to do with each script: the instruction layer over the deterministic tools |
 | 18 | `skills/import-document/` | someone already has a document — how to take it in safely |
-| 19 | `docs/design.md` | the reasoning, the research verdict, the deliberate absences |
-| 20 | `roadmap/ROADMAP.md` | what is done, what is next, what is untested |
+| 19 | `docs/proposal.md` | the design contract (§1–§8): the research verdict, the deliberate absences, the document authority table, the deviations |
+| 20 | `roadmap/ROADMAP.md` + `roadmap/handoffs/` | what is done, what is next, what is untested — and one delivery log per batch |
 
 ## If you are an AI agent and nobody told you anything
 
