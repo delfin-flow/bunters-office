@@ -1,0 +1,35 @@
+# Written on the first run. Read by scripts/status.sh and scripts/package-export.sh.
+schema_version: 1
+
+# Who and where — these decide almost everything legal.
+owner_name: ""
+entity_name: ""
+entity_type: ""          # sole-trader | partnership | limited-company | other
+jurisdiction: ""         # England & Wales | Scotland | other
+alternate_name: ""
+alternate_relationship: ""
+
+# The machine, recorded at installation by scripts/doctor.sh (charters/environment.md).
+# Read this instead of guessing; never re-detect per session.
+platform: ""             # linux | macos | windows-gitbash | unknown | unverified
+platform_checked: ""
+tools_missing: ""
+
+# How the person chose to give information (charters/first-run.md).
+collection_mode: ""      # chat | markdown-form | local-web-form | survey
+
+# How the person wants to be reminded (charters/cadence.md). Nothing is scheduled for them.
+reminder_channel: ""     # manual | os-notification | email | calendar
+reminder_contact: ""
+
+# Cadence windows, in months.
+reverify_chain_months: 6
+reverify_other_months: 12
+drill_months: 12
+
+# The package is its own git repository (charters/package.md). Leave the remote empty for a
+# local-only record; set it only to a PRIVATE repository the owner controls.
+package_remote: ""
+
+# Where an exported bundle is written (charters/package.md). Absolute path or relative to this repo.
+package_output: "../bunters-office-package"

@@ -1,7 +1,7 @@
 # store/ is the person's package: its own git repository, never part of this one
 # (charters/package.md). The workspace keeps its upstream remote, so it must stay clean
 # of personal data — that is exactly what this line protects.
-store/
+/store/
 
 # Pack output and scratch
 build/
