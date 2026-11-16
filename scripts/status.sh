@@ -125,6 +125,26 @@ if [ "$p" -le 1 ]; then note "  $p file(s) — only the template so far, nothing
 if [ -f "$STORE/procedures/key-recovery.md" ]; then note "  key-recovery.md present"; else note "  NO KEY RECOVERY ROUTE — the pack will say this pack contains no key"; problems=$((problems+1)); fi
 
 note ""
+note "-- package (store/ is its own git repository) --"
+if git -C "$STORE" rev-parse --git-dir >/dev/null 2>&1; then
+  commits=$(git -C "$STORE" rev-list --count HEAD 2>/dev/null || echo 0)
+  lastmsg=$(git -C "$STORE" log -1 --format='%cs %s' 2>/dev/null)
+  note "  $commits commit(s); last: ${lastmsg:-none}"
+  if [ -n "$(git -C "$STORE" status --porcelain 2>/dev/null)" ]; then
+    note "  UNCOMMITTED — the record changed but the package was not committed"; problems=$((problems+1))
+  fi
+  chl=$(grep -m2 '^## ' "$STORE/CHANGELOG.md" 2>/dev/null | grep -v 'YYYY-' | head -1 | sed 's/^## //' || true)
+  if [ -n "${chl:-}" ]; then
+    a=$(age_months "$(printf '%s' "$chl" | grep -oE '[0-9]{4}-[0-9]{2}-[0-9]{2}' | head -1)")
+    [ "$a" != unparsed ] && [ "$a" != unknown ] && [ "$a" -ge 12 ] && { note "  CHANGELOG stale — last entry ${a}m ago"; problems=$((problems+1)); }
+  else
+    note "  no CHANGELOG entries yet (a session that changes the record adds one)"
+  fi
+else
+  note "  NOT a git repository — the record has no history and no provenance"; problems=$((problems+1))
+fi
+
+note ""
 note "-- local adaptations --"
 if [ -f "$STORE/adaptations.md" ]; then
   ad=$(grep '^## ' "$STORE/adaptations.md" 2>/dev/null | grep -vc '^## YYYY-' || true); ad=${ad:-0}

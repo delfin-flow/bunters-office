@@ -25,12 +25,13 @@ needed, and the free option — before you install anything.
    - Where would you like your private record to live? (suggest the user's home folder or Documents; do
      not create it anywhere else without asking)
 3. **Decide the path:**
-   - **Terminal available** → run, from the repository folder:
+   - **Terminal available** → from the folder they cloned:
      ```sh
-     scripts/install.sh "<the folder they chose>"
+     scripts/install.sh
      ```
-     It copies the workspace, creates the private record, records the environment, and makes the first
-     commit. Nothing outside that folder is touched.
+     It creates `store/` (their package — a **second git repository**, with its own history and
+     changelog), records the environment, and makes the package's first commit. The workspace keeps its
+     GitHub address so it can update itself later. Nothing outside that folder is touched.
    - **No terminal** → do **not** pretend. Explain that the workspace still works as a set of written
      documents they can read with any assistant, but the helper scripts (checking, pack building) cannot
      run yet, and the record will be `environment: unverified`. Offer to help them find their terminal
@@ -73,8 +74,9 @@ with everything these scripts need. Nothing else is required.
 
 | It does | It does not |
 |---|---|
-| copies the workspace into a folder you choose | install a background service |
-| creates `store/` — your private record | create an account anywhere |
+| creates `store/` — your package, its own git repository | install a background service |
+| keeps the workspace's GitHub address, so it can update | create an account anywhere |
+| records your environment | phone home, ever |
 | records your environment (see `charters/environment.md`) | send anything over the network |
 | makes one git commit, local only | add a remote, or publish anything |
 

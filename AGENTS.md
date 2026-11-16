@@ -84,6 +84,10 @@ script, and only with the reason recorded in `docs/decisions.md`.
   drill. Ask which; do not mix them silently.
 - **Deterministic first.** Dates, staleness, checksums, pack assembly and installation are scripts.
   Use them instead of doing the arithmetic or the packaging by hand.
+- **Version the package, every session.** `store/` is its own git repository (`charters/package.md`).
+  When a session changes something a reader would care about, add a line to `store/CHANGELOG.md` and
+  commit the package — the record's history is the evidence an executor will look for. Cosmetic edits are
+  not committed alone.
 - **Write the log.** Every session appends to `store/log.md`: date, what was asked, what changed, what
   was verified, what is now stale. The next session reads it instead of re-deriving.
 - **Prefer the provider's own words.** Each account entry links the provider's current help page and
@@ -96,6 +100,13 @@ script, and only with the reason recorded in `docs/decisions.md`.
 When the person acting is the **alternate** (not the owner), follow `charters/secondary.md`: the owner's
 recorded working method is applied to the alternate's problems, the owner's voice never is. Say plainly
 that you are guiding them through the owner's record, not speaking as the owner.
+
+## Checking and updating
+
+`scripts/version.sh` compares the workspace with its upstream; `scripts/update.sh` applies an update
+(fast-forward only, and it never touches `store/`). **Updating is the owner's decision**: propose it, show
+the incoming changelog, and act only on approval. Never update in the middle of someone's record session,
+and never migrate a record because a charter's shape changed — say what changed and let them choose.
 
 ## Borrowing from upstream
 

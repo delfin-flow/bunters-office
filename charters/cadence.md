@@ -40,6 +40,14 @@ scheduler** — it produces the *dates and the wording*, and the person (or thei
 3. **Back up and restore-test** — including the working machines. Track the last *restore*, not only the
    last backup.
 
+## Committing — the heartbeat of the package
+
+`store/` is its own repository. A session that changes the record adds a `store/CHANGELOG.md` line and
+commits; `scripts/status.sh` flags an uncommitted package. The commit history is what an executor can read
+years later when the only question is *"when did this change, and who said so"*.
+Back the package up like any repository: a private remote, an encrypted copy, or both — never only in the
+same laptop that would be lost in the same event.
+
 ## When the record and reality disagree
 
 Reality wins, immediately and loudly: mark the entry `stale` with the date and the discrepancy, fix the

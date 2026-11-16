@@ -55,12 +55,20 @@ and call a professional.
 Then say: *"start the record"*. It asks **how** you would like to give information — talking it through, a
 form you fill in, or a survey you do in sittings — before it asks for any of it.
 
+## Two things, and they update differently
+
+| | What it is | How it lives |
+|---|---|---|
+| **the workspace** | this folder: the rules, the shapes, the small tools | keeps its GitHub address, so it can **check its own version** (`scripts/version.sh`) and **update itself** (`scripts/update.sh` — asks first, never touches your record) |
+| **your package** | `store/`: your record — inventory, authority map, procedures, drill, changelog | its **own git repository**, with its own history and changelog, so a change can always be traced |
+| **the bundle** | a ZIP made from your package when it has to travel | a snapshot — opened by someone else, years later, with or without software |
+
 ## What you end up with
 
 | You get | What it is |
 |---|---|
 | **your record** | a private folder (`store/`) holding the inventory, the dependency chain, who may act, and the safe procedures |
-| **a pack** | one ZIP you keep somewhere safe — readable years later, by a person or an AI, with no software from us |
+| **a bundle** | one ZIP you keep somewhere safe — readable years later, by a person or an AI, with no software from us (`scripts/package-export.sh`, then `scripts/bundle-verify.sh`) |
 | **a drill** | evidence that a named person actually managed to do it, and what failed |
 | **a habit** | `scripts/status.sh` says what has gone out of date, so the record does not rot into a comforting lie |
 
@@ -70,10 +78,10 @@ form you fill in, or a survey you do in sittings — before it asks for any of i
 |---|---|
 | [`AGENTS.md`](AGENTS.md) | the operating contract for any assistant working here — non-negotiables first |
 | [`charters/bunter.md`](charters/bunter.md) | who the Bunter is: identity, purpose, tone, what it must never do |
-| [`charters/`](charters/) | the contracts: the record, authority, secrets, the pack, the drill, the cadence, the first run, the alternate, the environment, feedback |
+| [`charters/`](charters/) | the contracts: the record, authority, secrets, the package, the drill, the cadence, the first run, the alternate, the environment, feedback |
 | [`INSTALL.md`](INSTALL.md) | the two ways in, written for a person and for an assistant |
 | [`templates/`](templates/) | the shapes your record and your pack are built from |
-| [`scripts/`](scripts/) | small readable tools: install, environment probe, status, pack build, pack verify, uninstall |
+| [`scripts/`](scripts/) | small readable tools: install, environment probe, status, version, update, package export, bundle verify, uninstall |
 | [`index.md`](index.md) | the read order, and what to do with this folder if you are an AI and nobody told you anything |
 | [`docs/`](docs/) | why it is built this way, and every decision with its reverse condition |
 | [`roadmap/`](roadmap/ROADMAP.md) | what is done, what is not, and the honest gaps |
@@ -81,7 +89,7 @@ form you fill in, or a survey you do in sittings — before it asks for any of i
 
 ## Status — honest
 
-**v0 (2026-11-16).** The contracts, templates and scripts exist and run. There is **no** account
+**v0.1.0 (2026-11-16).** The contracts, templates and scripts exist and run. There is **no** account
 integration, **no** credential vault, **no** automation of any account, and **no** legal workflow — all
 deliberate. What is proven: the record has a shape, the pack builds and verifies, the freshness check
 works, installation is a script, and the machine's environment is recorded once at installation.

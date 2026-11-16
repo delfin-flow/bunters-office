@@ -12,7 +12,8 @@ another person could continue it, hold it steady, or wind it down.
 | Front page | `README.md` — the page a person arriving for the first time should read |
 | Rules for assistants | `AGENTS.md` |
 | License | Apache-2.0 |
-| Version | v0 (2026-11-16) |
+| Version | `VERSION` (currently 0.1.0) — compare with `scripts/version.sh`, update with `scripts/update.sh` |
+| Package | `store/` — **its own git repository**; the bundle is a ZIP exported from it (`charters/package.md`) |
 | What it is not | a will, a power of attorney, legal/financial advice, a password vault, an autonomous account agent |
 
 ## Read order
@@ -28,7 +29,7 @@ another person could continue it, hold it steady, or wind it down.
 | 7 | `charters/authority.md` | who may legally do what, and the stop-and-refer points |
 | 8 | `charters/secrets.md` | locators only; borrow a vault, never build one |
 | 9 | `charters/environment.md` | the machine, recorded once at installation — never guessed per session |
-| 10 | `charters/package.md` | the portable pack — the thing that survives |
+| 10 | `charters/package.md` | the package (versioned working set) vs the bundle (ZIP for transport) |
 | 11 | `charters/drill.md` | proving a stranger can actually do it |
 | 12 | `charters/cadence.md` | last run, re-verification, reminders, rotation, backups |
 | 13 | `charters/secondary.md` | how the alternate is guided (and what is never simulated) |
@@ -56,6 +57,8 @@ platform — `store/environment.md` records it (or says it was never recorded).
 - **Update** (template): `git pull`. **Update** (personal record): copy changes deliberately — never merge
   in bulk, `store/` is yours.
 - **Adapt** to your machine: minimally, with a free tool, and record it in `store/adaptations.md`.
+- **Update**: `scripts/version.sh` → `scripts/update.sh` (owner approves; fast-forward only; never
+  touches `store/`).
 - **Report** something wrong, stale or missing: search the issue board first (`charters/feedback.md`), then
   open a compatibility report. An assistant may do this on the person's behalf with their agreement —
   **never including anything from `store/`.**

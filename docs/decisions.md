@@ -89,3 +89,14 @@ any model loading this workspace can say what it is, who produced it (DelfinFlow
 including from inside a **pack**, whose `manifest.json` and `START-HERE.md` carry the repository and the
 issue route so a foreign AI with no context can identify the origin and report a defect. **Reverses never**;
 the wording may change, the identification must not.
+
+## D13 — The workspace self-updates; the package is a separate repository (owner, 2026-11-16)
+
+Supersedes the parts of `D4` that assumed a throwaway clone and a deleted remote. The workspace **keeps
+its upstream address**, so `scripts/version.sh` can compare it with GitHub and `scripts/update.sh` can
+fast-forward it — showing the incoming changelog and re-probing the machine, never touching the record.
+The **package** (`store/`) is then a **second git repository with its own changelog**, because a record
+needs history and blame of its own, and because a `git pull` into the workspace must never be able to
+collide with someone's private data. The **bundle** is a ZIP exported from the package when it has to
+travel; it carries the workspace version, the package commit and the package changelog head, so a reader
+knows exactly what they are holding. **Reverses never**; how updates are approved may be revisited.

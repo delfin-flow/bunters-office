@@ -19,7 +19,7 @@ esc() { printf '%s' "$1" | sed 's/[&|\\]/\\&/g'; }
 [ -f "$STORE/profile.md" ] || die "no store/profile.md — the record has not been started (charters/first-run.md)."
 
 # The package is its own repository (charters/package.md): its commit and changelog travel with the bundle.
-PKG_COMMIT=""; PKG_DIRTY="unknown"
+PKG_COMMIT=""; PKG_DIRTY="null"
 if git -C "$STORE" rev-parse --git-dir >/dev/null 2>&1; then
   PKG_COMMIT=$(git -C "$STORE" rev-parse --short HEAD 2>/dev/null || echo "")
   [ -z "$(git -C "$STORE" status --porcelain 2>/dev/null)" ] && PKG_DIRTY=false || PKG_DIRTY=true
@@ -49,7 +49,7 @@ CHAIN_VERIFIED=$(awk -F, 'NR>1 && $6=="chain" && $14!="" {n++} END{print n+0}' "
 UNKNOWN_AUTH=$(awk -F, 'NR>1 && ($12=="" || $12=="unknown") {n++} END{print n+0}' "$ACCT")
 OTHER_TOTAL=$((ACCOUNTS - CHAIN_TOTAL))
 LAST_REVIEW=$(awk -F, 'NR>1 && $14!="" {print $14}' "$ACCT" | sort -r | head -1); LAST_REVIEW=${LAST_REVIEW:-never}
-DRILL_LAST=$(find "$STORE/drill" -name '*.md' -printf '%f\n' 2>/dev/null | grep -oE '^[0-9]{4}-[0-9]{2}-[0-9]{2}' | sort -r | head -1); DRILL_LAST=${DRILL_LAST:-never}
+DRILL_LAST=$(find "$STORE/drill" -name '*.md' -printf '%f\n' 2>/dev/null | grep -oE '^[0-9]{4}-[0-9]{2}-[0-9]{2}' | sort -r | head -1 || true); DRILL_LAST=${DRILL_LAST:-never}
 NOW=$(date -u +%Y-%m-%dT%H:%M:%SZ)
 STALE=0
 for d in $(awk -F, 'NR>1 && $14!="" {print $14}' "$ACCT"); do
@@ -152,7 +152,7 @@ cat > "$STAGE/manifest.json" <<MANIFEST
   },
   "generated_at": "$NOW",
   "workspace": { "version": "$WS_VERSION" },
-  "package": { "commit": "${PKG_COMMIT:-unversioned}", "uncommitted_changes": "$PKG_DIRTY", "changelog_head": "$(printf '%s' "$CHANGELOG_HEAD" | sed 's/["\\]/ /g')" },
+  "package": { "commit": "${PKG_COMMIT:-unversioned}", "uncommitted_changes": $PKG_DIRTY, "changelog_head": "$(printf '%s' "$CHANGELOG_HEAD" | sed 's/["\\]/ /g')" },
   "entity": { "name": "$(printf '%s' "$ENTITY" | sed 's/["\\]/ /g')", "type": "$ENTITY_TYPE", "jurisdiction": "$JURISDICTION" },
   "alternate": { "name": "$(printf '%s' "$ALTERNATE" | sed 's/["\\]/ /g')", "relationship": "$ALTERNATE_REL", "authority_on_file": "unknown" },
   "counts": { "accounts": $ACCOUNTS, "assets": $ASSETS_N, "procedures": $PROCEDURES, "drills": $DRILLS },

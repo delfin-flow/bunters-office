@@ -3,7 +3,8 @@
 **Scope:** v0 — a workspace contract, templates and deterministic tools for a continuity passport and a
 stranger drill. Status: ⬜ todo · 🔄 in progress · ✅ done.
 
-**Current state (2026-11-16):** the scaffold exists and its tools run. Installation records the machine
+**Current state (2026-11-16, v0.1.0):** the scaffold exists and its tools run; the workspace compares
+itself with upstream and updates by fast-forward; the record lives in its own repository. Installation records the machine
 (`scripts/doctor.sh`) so no session has to guess the platform or the available tools. `scripts/install.sh` creates a
 private record repository from the template (verified in a clean directory), `status.sh` reports stale
 and incomplete entries, `package-export.sh` assembles the pack, `bundle-verify.sh` checks checksums, credential-
@@ -36,6 +37,24 @@ those platforms** — that is the honest state, and `docs/decisions.md` D10 says
 `INSTALL.md`, `README.md`, `AGENTS.md`, `charters/first-run.md` and the pack's `ai-guide.md` now assume a
 non-technical reader. **Acceptance:** someone who has never used a terminal completes installation and the
 first record section without asking what a word means — or the words are changed until they do.
+
+## S14 — Version check and self-update ✅ (v0, local-remote tested)
+
+`VERSION` + `CHANGELOG.md`; `scripts/version.sh` compares the local version with the upstream's tags
+(read-only, offline-aware, and it notices a local copy that is *ahead*); `scripts/update.sh` fetches,
+prints the incoming changelog, asks, fast-forwards, re-probes the machine and states that `store/` was not
+touched. **Acceptance:** a clone at v0.1.0 with a bare upstream tagged v0.2.0 reports "update available",
+fast-forwards on approval, and leaves the package's own repository untouched — verified 2026-11-16 against
+a local bare remote. **Not yet done:** approval policy beyond the prompt, and a release procedure for
+maintainers (tag + changelog entry).
+
+## S15 — The package is its own repository ✅ (v0)
+
+`install.sh` creates `store/.git` with an initial commit; `store/CHANGELOG.md` is the package's log;
+`status.sh` reports commit count, uncommitted changes and changelog age; the exported bundle records the
+package commit and whether it was dirty. Deleting the tracked template marker removed the old
+dirty-tree trap. **Acceptance:** install → session → commit → export shows the package commit in the
+manifest — verified 2026-11-16.
 
 ## S3 — First-run detection and collection modes ⬜
 
