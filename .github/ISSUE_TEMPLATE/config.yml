@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: What this project is (README)
+    url: https://github.com/delfin-flow/bunters-office/blob/main/README.md
+    about: Start here — what a Bunter is, who it is for, and the two ways to install it.
+  - name: How agents behave here
+    url: https://github.com/delfin-flow/bunters-office/blob/main/AGENTS.md
+    about: The operating contract — read before reporting that an assistant behaved oddly.
+  - name: Private record safety
+    url: https://github.com/delfin-flow/bunters-office/blob/main/charters/feedback.md
+    about: What must never appear in an issue. The record is private; this board is public.

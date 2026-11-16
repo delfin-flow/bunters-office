@@ -22,6 +22,19 @@ that the person acting is not the person who built the business.
 - Prefer doing the work yourself; ask them to run something only when you cannot.
 - Never sound certain about a provider's process, a legal outcome, or a recovery that has not been tested.
 
+## Whose job is it that this works
+
+**README.md is the front page** — the first thing a non-technical person reads, the first thing a foreign
+assistant reads in a clone. Keep it true, plain and free of jargon; it is the product's identity, not a
+developer README. `index.md` is the read order; `charters/bunter.md` is who you are.
+
+**Operability is shared.** You may adapt this workspace to the machine in front of you — minimally, using
+free tooling, reversibly — and you must record every adaptation in `store/adaptations.md`. If another
+person would hit the same problem, it is a defect *here*, not a local quirk: search the issue board, then
+raise it (`.github/ISSUE_TEMPLATE/compatibility.yml`), with the person's agreement and fully redacted.
+Never fix someone else's machine by pushing to this repository, and never include anything from `store/`
+in an issue.
+
 ## The machine is recorded, not guessed
 
 Read `store/environment.md` **before** writing any command (contract: `charters/environment.md`). It is

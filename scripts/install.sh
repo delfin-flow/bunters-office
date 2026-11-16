@@ -58,6 +58,7 @@ mkdir -p store/inventory store/procedures store/drill
 [ -f store/inventory/assets.csv ]   || cp templates/inventory/assets.csv   store/inventory/assets.csv
 [ -f store/inventory/dependencies.md ] || cp templates/inventory/dependencies.md store/inventory/dependencies.md
 [ -f store/procedures/provider-step.md ] || cp templates/procedures/provider-step.md store/procedures/provider-step.md
+[ -f store/adaptations.md ] || cp templates/store/adaptations.md store/adaptations.md
 
 # 3. No longer a template.
 rm -f .bunters-template

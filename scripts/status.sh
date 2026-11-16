@@ -129,6 +129,17 @@ if [ "$p" -le 1 ]; then note "  $p file(s) — only the template so far, nothing
 if [ -f "$STORE/procedures/key-recovery.md" ]; then note "  key-recovery.md present"; else note "  NO KEY RECOVERY ROUTE — the pack will say this pack contains no key"; problems=$((problems+1)); fi
 
 note ""
+note "-- local adaptations --"
+if [ -f "$STORE/adaptations.md" ]; then
+  ad=$(grep '^## ' "$STORE/adaptations.md" 2>/dev/null | grep -vc '^## YYYY-' || true); ad=${ad:-0}
+  unrep=$(grep -c 'Should this go upstream?: yes$' "$STORE/adaptations.md" 2>/dev/null || true); unrep=${unrep:-0}
+  note "  $ad recorded"
+  if [ "$unrep" -gt 0 ]; then note "  $unrep marked for upstream but not obviously reported — see charters/feedback.md"; problems=$((problems+1)); fi
+else
+  note "  none recorded (the file appears on the first local workaround)"
+fi
+
+note ""
 note "-- drill --"
 drill=$(ls -1 "$STORE/drill" 2>/dev/null | grep -v '^$' | sort -r | head -1 || true)
 if [ -z "${drill:-}" ]; then

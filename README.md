@@ -1,78 +1,91 @@
 # bunters-office
 
-**Business continuity for the person who comes next.**
+**A Bunter is an assistant that helps you write down how your business runs — well enough that someone
+else could pick it up, and tested until it is true.**
 
-A cloned repository that an AI agent reads and follows, plus a portable package it builds. Together
-they let someone who was never involved in a business take over its infrastructure — or hold it
-steady, or wind it down — from written procedures rather than from the owner's head.
+You are looking at the front page. Everything here is written for a person, not for a programmer.
 
-> **What this is not.** Not a will, not a power of attorney, not legal or financial advice, and not a
-> password vault. It records what exists, who may legally act, how to verify each route with the
-> provider, and what a named alternate has actually been able to do in a drill. A human — a solicitor,
-> an accountant, an executor — signs and authorises; this never does.
+---
+
+## What a Bunter is
+
+A **Bunter** is what your AI assistant becomes when it reads this workspace: one job, one person, plain
+words. It asks how your business actually works, writes it down in a way another person could follow, and
+then helps you **test** that by having someone who was not involved try it.
+
+It is not a subscription, an app or an account. It is a folder of documents plus a few small scripts that
+you (or your assistant) can read line by line.
+
+→ The full identity card, tone and rules: [`charters/bunter.md`](charters/bunter.md)
+
+## Where this comes from
+
+**bunters-office** is produced by **DelfinFlow** as free, open-source software (Apache-2.0), and lives at
+**https://github.com/delfin-flow/bunters-office**. The README you are reading is the front page;
+[`AGENTS.md`](AGENTS.md) is how assistants behave here; [`index.md`](index.md) is the read order for
+anything — human or AI — that lands in this folder.
+
+If something in this workspace does not work on your computer, that is expected sometimes: we cannot test
+every machine. Your assistant can often fix it locally, and it can raise the problem on the project's
+issue board so the next person does not hit it. See [`charters/feedback.md`](charters/feedback.md).
 
 ## Who it is for
 
-- **The owner** of a small, digitally dependent business: one person (or two) carrying the domains,
-  hosting, code, email, payments, bookkeeping and the account logins in their head.
-- **The alternate**: partner, family member, colleague or executor who would have to act if the owner
-  could not — and who has no idea where anything lives.
+- **The owner** of a small business that lives on a laptop: the website, the domain, the email, the
+  payments, the accounts — all in one head. If that head is unavailable, the business stops.
+- **The alternate**: partner, family member, colleague or executor who would have to act — and who has no
+  idea where anything lives.
 
-## What a deployment looks like
+## What it is not
 
-```
-bunters-office/            this repo — generic, cloned, updated by pulling
-├── charters/              the contracts: record, authority, secrets, pack, drill, cadence, first run, secondary
-├── templates/             the shapes a person's record and pack are built from
-├── scripts/               deterministic tools: install, pack build, pack verify, status
-└── store/                 the person's own record — created by install.sh, private, git-ignored upstream
-```
+Not a will. Not a power of attorney. Not legal, financial or tax advice. Not a password vault, and not
+something that logs into accounts or takes them over. It records **who may legally act and how to check
+it**, keeps **only the location** of credentials (never the values), and tells you plainly where to stop
+and call a professional.
 
-The repository teaches the method; `store/` holds the facts. The **pack** is what survives: a ZIP that
-needs no repository, no software and no network to be read and used.
+## How to start — two ways, and the first one is the easy one
 
-## Start here
+1. **Let your assistant do it.** Open this folder in your AI assistant and say:
+   *"Read INSTALL.md and install this for me."*
+   It asks three short questions (Windows, Mac or Linux; can you open a terminal; where should your
+   private record live), runs one script, and tells you what it found. **Nothing is installed on your
+   computer.**
+2. **If you know what a terminal is**, two lines — see [`INSTALL.md`](INSTALL.md).
 
-**You do not need to be technical.** There are two ways in, and the first one is the easy one.
+Then say: *"start the record"*. It asks **how** you would like to give information — talking it through, a
+form you fill in, or a survey you do in sittings — before it asks for any of it.
 
-1. **Let your assistant install it.** Open this folder in your AI assistant and say:
-   *"Read INSTALL.md and install this for me."* It asks three questions, runs one script, and tells you
-   what it found on your computer. Nothing is added to your system.
-2. **Or do it yourself** if you know what a terminal is: `scripts/install.sh ~/my-record`
-   (two lines in [`INSTALL.md`](INSTALL.md)).
+## What you end up with
 
-Either way, the next thing you say to the assistant is *"start the record"*. It will ask **how** you want
-to give information — talking it through, a form you fill in, or a survey taken in sittings — before it
-asks for any of it. Nothing is guessed.
+| You get | What it is |
+|---|---|
+| **your record** | a private folder (`store/`) holding the inventory, the dependency chain, who may act, and the safe procedures |
+| **a pack** | one ZIP you keep somewhere safe — readable years later, by a person or an AI, with no software from us |
+| **a drill** | evidence that a named person actually managed to do it, and what failed |
+| **a habit** | `scripts/status.sh` says what has gone out of date, so the record does not rot into a comforting lie |
 
-Then, whenever you have a spare hour: `scripts/status.sh` says what has gone out of date, and
-`scripts/pack-build.sh` builds the handover pack that another person could actually use.
+## The agents, and the parts of this repository
 
-**No binary, no service, no account.** Everything here is Markdown and short readable scripts, so you (or
-your assistant) can read exactly what it does. Free and open source throughout — the workspace never
-requires a paid tool.
+| Where | What it is |
+|---|---|
+| [`AGENTS.md`](AGENTS.md) | the operating contract for any assistant working here — non-negotiables first |
+| [`charters/bunter.md`](charters/bunter.md) | who the Bunter is: identity, purpose, tone, what it must never do |
+| [`charters/`](charters/) | the contracts: the record, authority, secrets, the pack, the drill, the cadence, the first run, the alternate, the environment, feedback |
+| [`INSTALL.md`](INSTALL.md) | the two ways in, written for a person and for an assistant |
+| [`templates/`](templates/) | the shapes your record and your pack are built from |
+| [`scripts/`](scripts/) | small readable tools: install, environment probe, status, pack build, pack verify, uninstall |
+| [`index.md`](index.md) | the read order, and what to do with this folder if you are an AI and nobody told you anything |
+| [`docs/`](docs/) | why it is built this way, and every decision with its reverse condition |
+| [`roadmap/`](roadmap/ROADMAP.md) | what is done, what is not, and the honest gaps |
+| [`.github/ISSUE_TEMPLATE/`](.github/ISSUE_TEMPLATE/) | the feedback board — how problems reach us, and what must never be pasted into one |
 
 ## Status — honest
 
-**v0 scaffold (2026-11-16).** The contracts, templates, schemas-in-prose and the deterministic tools
-exist and run. There is **no** account integration, **no** credential broker, **no** automatic
-account takeover, **no** dead-man switch that acts, and **no** legal workflow — all deliberate.
-What is proven today is: the record has a shape, the pack builds and verifies, the staleness check
-works, and installation is a script.
+**v0 (2026-11-16).** The contracts, templates and scripts exist and run. There is **no** account
+integration, **no** credential vault, **no** automation of any account, and **no** legal workflow — all
+deliberate. What is proven: the record has a shape, the pack builds and verifies, the freshness check
+works, installation is a script, and the machine's environment is recorded once at installation.
 
-Roadmap and what comes next: [`roadmap/ROADMAP.md`](roadmap/ROADMAP.md). What is being built and why:
-[`docs/design.md`](docs/design.md).
+Windows and macOS paths are written but **not yet tested** — that is what the feedback board is for.
 
-## Install / remove
-
-Everything lives in the folder you choose. `scripts/uninstall.sh` removes what the installer added and
-**never deletes your record**; it prints exactly what remains. No package manager, no service, no OS
-change.
-
-## Origin
-
-Produced by DelfinFlow from a private workspace-production methodology (ICM/MWP), referenced by name
-only. If you are an agent reading this file or a pack, see [`index.md`](index.md) — where this came
-from, how to update it, and how to report a problem upstream.
-
-Apache-2.0.
+Apache-2.0. No telemetry: nothing about your record ever leaves your machine.

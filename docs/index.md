@@ -4,7 +4,9 @@
 |---|---|
 | Why this exists, what the research said, what is deliberately absent | [`design.md`](design.md) |
 | Decisions made, with the reason and what would reverse them | [`decisions.md`](decisions.md) |
-| The contracts (record, authority, secrets, pack, drill, cadence, first run, alternate) | [`../charters/`](../charters/) |
+| The contracts (bunter, record, authority, secrets, environment, pack, drill, cadence, first run, alternate, feedback) | [`../charters/`](../charters/) |
+| Who the assistant is when it loads this workspace | [`../charters/bunter.md`](../charters/bunter.md) |
+| How problems reach the maintainer, and what an issue may never contain | [`../charters/feedback.md`](../charters/feedback.md) |
 | What is done and what is next | [`../roadmap/ROADMAP.md`](../roadmap/ROADMAP.md) |
 | What a deployment looks like, and how to start | [`../README.md`](../README.md) |
 | The operating contract for any agent | [`../AGENTS.md`](../AGENTS.md) |

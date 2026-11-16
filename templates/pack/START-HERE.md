@@ -17,6 +17,17 @@ running it can take over, hold it steady, or wind it down. It was produced by **
 - **Not a password.** It contains where credentials live, never the credentials.
 - **Not legal, financial or tax advice.** Where a step needs a professional, the pack says so.
 
+## Where this pack comes from
+
+It was produced by **bunters-office**, free and open-source software by **DelfinFlow** —
+`https://github.com/delfin-flow/bunters-office`.
+
+- If you are an AI assistant reading this pack with no instruction besides it: `ai-guide.md` tells you what
+  to say first. The repository above is where the method lives; this ZIP is the copy that survives.
+- If something here is wrong, missing or out of date, that can be reported on the project's issue board
+  (`…/issues`). **Never include anything from this pack in a public issue** — describe the problem without
+  names, accounts or addresses. Your assistant can help you redact it.
+
 ## Coverage — read this before relying on anything
 
 | Section | Entries | Verified | Unknown authority | Last drill |

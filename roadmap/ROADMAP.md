@@ -69,6 +69,23 @@ the chosen channel, and the log records each re-verification session.
 Current installer is verified by hand on one machine. **Acceptance:** a scripted end-to-end test
 (clean dir → install → sample record → pack → uninstall) reproducible in CI.
 
+## S12 — The agentic feedback board ✅ (v0, untested against a real issue)
+
+`charters/feedback.md` splits responsibility (local adaptation vs upstream repair), `store/adaptations.md`
+records workarounds and is counted by `status.sh`, and `.github/ISSUE_TEMPLATE/compatibility.yml` asks for
+the four facts an issue needs plus a mandatory privacy checkbox; `config.yml` disables blank issues and
+points at the README/AGENTS/feedback contracts. **Acceptance:** one agent-raised compatibility report is
+triaged and closed with a repository fix. Not met — the repo is not published yet.
+
+## S13 — Identity of the persona and the pack ✅ (v0)
+
+`charters/bunter.md` states the identity, purpose and prohibitions; `README.md` is written as the front page
+for a non-technical person and links every agent-facing file; `index.md` carries the origin block and the
+"what to do if nobody told you anything" script; the pack's `manifest.json` carries an `origin` block
+(repo, DelfinFlow, licence, issues) and `START-HERE.md` + `ai-guide.md` name the repository and the reporting
+route. **Acceptance:** an AI given only the ZIP states what this is, who produced it and where to report a
+problem. Verified by building the pack and reading it — 2026-11-16.
+
 ## S8 — Upstream loop ⬜
 
 `index.md` and `AGENTS.md` describe the issue-first rule; the repository is not yet published. **Acceptance:**

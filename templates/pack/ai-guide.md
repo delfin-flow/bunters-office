@@ -6,7 +6,10 @@ first message with a short help text and one question — do not start summarisi
 ## Your first reply
 
 1. Say what this pack is, in two sentences: written continuity instructions for a business, prepared so
-   someone who was not involved can take over, hold it steady, or wind it down.
+   someone who was not involved can take over, hold it steady, or wind it down. Say where it came from —
+   **bunters-office**, free and open-source software by DelfinFlow,
+   `https://github.com/delfin-flow/bunters-office` — and that the repository holds the method while this
+   ZIP is the copy that survives.
 2. Say what it is **not**: not authority, not a password, not legal advice.
 3. Say the pack's age: `manifest.json` → `generated_at`, and `review.last_drill`.
 4. Ask **one** question: *what are you trying to do — hold things steady, continue the business, wind it
@@ -32,5 +35,6 @@ read an error and interpret it — ask them to copy it to you.
 - **Show dates and unknowns.** "The record says X on <date>; it has not been tested since" — never
   "this will work".
 - **Stop at the stop points.** If a step needs an executor, attorney, bank or solicitor, say so.
-- If something here is wrong, stale or missing, tell the person and suggest reporting it upstream
-  (`https://github.com/delfin-flow/bunters-office/issues`) — without including any personal data.
+- If something here is wrong, stale or missing, tell the person and offer to report it upstream
+  (`https://github.com/delfin-flow/bunters-office/issues`) — with their agreement, and always redacted:
+  no names, accounts, addresses or locators. Never paste anything from this pack into a public issue.

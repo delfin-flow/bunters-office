@@ -1,0 +1,78 @@
+name: Compatibility or behaviour problem
+description: Something did not work on your machine, or an assistant behaved in a way this repository does not describe.
+title: "[compat] "
+labels: ["compatibility"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you — this is the normal way this project learns about other machines.
+
+        **Do not paste anything from `store/`** (names, accounts, addresses, locators, credentials,
+        drill notes). Describe the shape of the problem, not your private data. If you are not sure,
+        remove it.
+
+  - type: input
+    id: goal
+    attributes:
+      label: What were you trying to do?
+      placeholder: Install the workspace / start the record / build the pack / run a drill
+    validations:
+      required: true
+
+  - type: input
+    id: happened
+    attributes:
+      label: What happened instead?
+      placeholder: One sentence. The script stopped at line 12 / the assistant used a Windows command on a Mac
+    validations:
+      required: true
+
+  - type: textarea
+    id: error
+    attributes:
+      label: Exact error text
+      description: Copy it. Do not retype or summarise — the wording usually contains the answer.
+      render: shell
+    validations:
+      required: false
+
+  - type: dropdown
+    id: platform
+    attributes:
+      label: Platform
+      description: As recorded in `store/environment.md` (or as you know it).
+      options:
+        - linux
+        - macos
+        - windows-gitbash
+        - windows (no Git Bash)
+        - unknown / not installed
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: Workspace version
+      description: The `Version` line in `index.md` — for example "v0 scaffold (2026-11-16)".
+    validations:
+      required: true
+
+  - type: textarea
+    id: adaptation
+    attributes:
+      label: Local workaround (if any)
+      description: What your assistant did to make it work here. This is valuable — it may become the general fix.
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: privacy
+    attributes:
+      label: Before you submit
+      options:
+        - label: This contains nothing from `store/` — no names, accounts, addresses, locators or credentials.
+          required: true
+        - label: I searched existing issues first.
+          required: true

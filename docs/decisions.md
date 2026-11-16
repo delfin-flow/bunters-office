@@ -71,3 +71,21 @@ also a token and trust cost that produces different answers in different session
 writes `store/environment.md` once (platform, shell, tools present/missing, optional vault tooling, date),
 and every session reads that file. Re-probing is deliberate: `--check`, logged. **Reverses never**; the
 probe's field list may grow.
+
+## D11 — Operability is shared: local adaptation, upstream repair (owner, 2026-11-16)
+
+This repository cannot test every machine, and the person's assistant can see the machine it is on. So the
+local assistant may adapt what is needed *there* — minimally, with free tooling, reversibly — and must
+record every adaptation in `store/adaptations.md`. Anything another person would hit is a defect **here**
+and goes to the issue board, which is the project's **agentic feedback board**: an assistant may open a
+report on the person's behalf (redacted, with their agreement), the maintainer triages and fixes it in the
+repository. **Reverses never.** The board's rules and the privacy line live in `charters/feedback.md`.
+
+## D12 — The Bunter is a named persona, and README is its front page (owner, 2026-11-16)
+
+A person arriving for the first time meets **README.md**, and an assistant arriving anywhere meets
+`index.md`. The persona is explicit (`charters/bunter.md`: identity, purpose, tone, prohibitions) so that
+any model loading this workspace can say what it is, who produced it (DelfinFlow) and where it comes from —
+including from inside a **pack**, whose `manifest.json` and `START-HERE.md` carry the repository and the
+issue route so a foreign AI with no context can identify the origin and report a defect. **Reverses never**;
+the wording may change, the identification must not.

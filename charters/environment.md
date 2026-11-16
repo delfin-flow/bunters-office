@@ -42,6 +42,20 @@ Windows user who has never seen a terminal.
 7. **No silent upgrades.** Re-probing is a deliberate act (`scripts/doctor.sh --check`), and the old record
    is replaced with the new one plus a line in `store/log.md`.
 
+## Who is responsible for making it work here
+
+**Shared, on purpose.** This repository cannot test every machine; the person's assistant can see the
+machine. So:
+
+- the **local assistant** makes it work *here* — narrows a command, uses the free tool that exists, writes
+  a one-line wrapper, or marks a step unsupported — minimally and reversibly, and records it in
+  `store/adaptations.md`;
+- **this repository** makes it work *generally* when another person would hit the same thing
+  (`charters/feedback.md`);
+- **nothing** happens silently: an adaptation that is not recorded is a trap for whoever comes next.
+
+`scripts/status.sh` counts adaptations, so a pile of local fixes becomes visible instead of comfortable.
+
 ## Per-platform minimum (what we assume, not what we install)
 
 | Platform | Assume | Free tooling if missing |

@@ -130,6 +130,15 @@ cat > "$STAGE/manifest.json" <<MANIFEST
 {
   "schema_version": 1,
   "product": "bunters-office",
+  "origin": {
+    "name": "bunters-office",
+    "produced_by": "DelfinFlow",
+    "repo": "https://github.com/delfin-flow/bunters-office",
+    "license": "Apache-2.0",
+    "issues": "https://github.com/delfin-flow/bunters-office/issues",
+    "front_page": "README.md",
+    "note": "Free and open-source. The repository holds the method; this pack is the copy that survives. Report problems there - never include pack contents."
+  },
   "generated_at": "$NOW",
   "entity": { "name": "$(printf '%s' "$ENTITY" | sed 's/["\\]/ /g')", "type": "$ENTITY_TYPE", "jurisdiction": "$JURISDICTION" },
   "alternate": { "name": "$(printf '%s' "$ALTERNATE" | sed 's/["\\]/ /g')", "relationship": "$ALTERNATE_REL", "authority_on_file": "unknown" },
