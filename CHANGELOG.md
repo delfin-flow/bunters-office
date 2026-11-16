@@ -3,6 +3,16 @@
 Newest first. Versions are compared against the upstream repository by `scripts/version.sh`; updating is
 `scripts/update.sh` (fast-forward only, never touches `store/`).
 
+## 0.4.0 — 2026-11-17
+
+- **Zero host footprint by default** (`charters/footprint.md`): no package installs, no dotfiles, no `PATH`,
+  no services or scheduled tasks, no files outside the repository; scratch and caches only in the git-ignored
+  `build/` and `.tmp/`.
+- **Exceptions are permissioned and recorded**: name it, why, what it changes, how it comes off, free option
+  first, explicit yes — then a row in `store/footprint.md`.
+- **Removal exposes everything**: `scripts/uninstall.sh` prints each recorded dependency with its removal
+  command, or states that nothing outside the two folders was added; `status.sh` reports the register.
+
 ## 0.3.0 — 2026-11-17
 
 - **The package is self-contained:** bundles carry `package-skills/` (guide-handover, produce-document,

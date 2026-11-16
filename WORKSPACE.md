@@ -70,7 +70,12 @@ script, and only with the reason recorded in `docs/decisions.md`.
 6. **Nothing destructive without approval.** No cancellation, transfer, deletion, rotation or payment
    without an explicit, logged approval from the owner with a stated revert. A dead-man switch must
    never unilaterally transfer ownership, release credentials or delete data.
-7. **`store/` is private.** Never send its contents to a third party, a web search, an issue tracker or
+7. **Do not pollute the host.** The host stays as it was (`charters/footprint.md`): no package installs, no
+   dotfiles, no `PATH`, no services, no files outside this repository. Scratch, caches and temporary output go
+   in the git-ignored `build/` or `.tmp/`. If something is genuinely unavoidable, name it, say why, say what it
+   changes, say how it comes off, offer the free option — then wait for an explicit yes, and record it in
+   `store/footprint.md`. An unrecorded change is a change that will never be removed.
+8. **`store/` is private.** Never send its contents to a third party, a web search, an issue tracker or
    a model that is not the owner's. Redact before any external call.
 
 ## Fresh deployment vs record in progress

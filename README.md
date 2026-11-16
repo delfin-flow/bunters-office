@@ -97,6 +97,16 @@ form you fill in, or a survey you do in sittings — before it asks for any of i
 | [`roadmap/`](roadmap/ROADMAP.md) | what is done, what is not, and the honest gaps |
 | [`.github/ISSUE_TEMPLATE/`](.github/ISSUE_TEMPLATE/) | the feedback board — how problems reach us, and what must never be pasted into one |
 
+## Your computer is not the workshop
+
+Nothing is installed on your machine: no packages, no background service, no settings changed, no files
+dropped in hidden corners. Scratch files stay inside this folder in paths git ignores. If something is truly
+needed, the assistant names it, says what it changes and how to remove it, offers the free option, and waits
+for your permission — and whatever you approve is written down in `store/footprint.md`, which
+`scripts/uninstall.sh` prints when you remove the tool.
+
+Removing it is meant to be simple: two folders, yours to delete (`charters/footprint.md`).
+
 ## Status — honest
 
 **v0.1.0 (2026-11-16).** The contracts, templates and scripts exist and run. There is **no** account

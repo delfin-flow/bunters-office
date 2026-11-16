@@ -36,6 +36,26 @@ rm -rf build
 find . -maxdepth 2 -name '*.zip' -not -path './templates/*' -delete 2>/dev/null || true
 
 echo
+echo "== what this tool added outside the repository =="
+FOOT="$ROOT/store/footprint.md"
+if [ -f "$FOOT" ]; then
+  rows=$(awk -F'|' 'NF>2 && $2 !~ /^-+$/ && $2 !~ /what/ && $2 !~ /^[[:space:]]*$/ {print}' "$FOOT")
+  if [ -z "${rows:-}" ]; then
+    echo "  nothing. Removing this tool = deleting this folder and store/ (both are yours)."
+    echo "  The only dependency is the AI assistant you already use; nothing was installed for you."
+  else
+    printf '%s\n' "$rows" | while IFS='|' read -r _ what where why added removal approved _; do
+      [ -z "${what// }" ] && continue
+      echo "  - ${what// }  at ${where// }"
+      echo "    why: ${why// }  · added: ${added// }  · approved: ${approved// }"
+      echo "    remove with: ${removal// }"
+    done
+  fi
+else
+  echo "  no footprint record (store/footprint.md is missing) — inspect the machine before assuming nothing changed."
+fi
+
+echo
 echo "Done. The workspace files and their upstream remote are unchanged; nothing was deleted from store/."
 echo "Your package is still in store/ as its own git repository."
 echo "This helper only removed generated output (build/, exported bundle zips)."

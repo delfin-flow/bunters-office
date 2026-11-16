@@ -147,3 +147,17 @@ job, and shipping it inside a snapshot would produce a stale copy of the worksho
 The package references `https://github.com/delfin-flow/bunters-office` (produced by DelfinFlow) in its
 manifest and README so provenance and reporting work offline-ish and without the repository. **Reverses
 never**; the exact skill subset may grow if a real handover needs one more.
+
+## D18 — Zero host footprint by default; every exception is named, approved and recorded (owner, 2026-11-17)
+
+The Bunter plus the person's assistant is one tool working on **one object: the record**. So the host is out
+of scope unless it is strictly necessary: no package installs, no dotfiles, no `PATH`, no services or
+scheduled tasks, no files outside this repository. Scratch, caches and temporary output live only in
+git-ignored `build/` and `.tmp/` — for now; if the tool matures into something that legitimately needs a
+local cache elsewhere, this decision is what changes it.
+
+An exception is a **permissioned, recorded act**: name it, why, what it changes, how it comes off, free option
+first, explicit yes, then a row in `store/footprint.md` — which `uninstall.sh` prints as its removal list.
+**Reverses only by revising this decision**, never by a convenient shortcut mid-session. Reason: the person
+cleaning up may not be the person who ran it, and a hidden dependency found years later is exactly the failure
+this prevents.

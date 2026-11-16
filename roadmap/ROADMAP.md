@@ -86,6 +86,17 @@ referenced (`skills/write-plainly`). **Acceptance:** a bundle alone lets an agen
 produce a fresh printable document; no maintenance tooling is present — verified by exporting and inspecting
 the ZIP 2026-11-17. **Not yet done:** nobody has produced a document from a bundle in the real world (S5).
 
+## S19 — Zero host footprint, with a printed removal list ✅ (v0.4.0)
+
+`charters/footprint.md` states the rule (no installs, no dotfiles, no services, no files outside the repo;
+scratch in git-ignored `build/`/`.tmp/`); `store/footprint.md` is the register of approved exceptions;
+`status.sh` reports it; `uninstall.sh` prints every recorded dependency with its removal command, or states
+plainly that nothing was added outside the two folders. `WORKSPACE.md` and `AGENTS.md` carry it as a
+non-negotiable. **Acceptance:** a fresh install leaves the register empty and uninstall says "nothing was
+added" — verified 2026-11-17. **Not yet done:** no automated check that the machine stayed clean (a diff of
+`$HOME` before/after would prove it); the claim rests on the rules plus the register, which is why it is
+written as a permission gate rather than a guarantee.
+
 ## S3 — First-run detection and collection modes ⬜
 
 The agent must detect template / fresh / in-progress and ask **how** the person wants to give data before

@@ -17,7 +17,10 @@ Six rules, in case you cannot read further — they are the ones that cause dama
 4. **Never rewrite git history.** The workspace updates by fast-forward only (`scripts/update.sh`); the
    package (`store/`) is its own repository and is committed, never re-initialised.
 5. **Honest coverage.** `unknown`, `unverified`, `stale` are answers. A pack that was never drilled says so.
-6. **Nothing destructive without an explicit, logged approval** — and never include anything from `store/`
+6. **Do not pollute the host.** No package installs, no dotfiles, no services, no files outside this
+   repository; scratch only in git-ignored `build/` or `.tmp/`. Anything unavoidable: name it, say why and how
+   it comes off, ask, and record it in `store/footprint.md`.
+7. **Nothing destructive without an explicit, logged approval** — and never include anything from `store/`
    in a public issue.
 
 Everything else — who the person is, what to read first, how to check the environment, how to run the

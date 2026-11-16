@@ -70,11 +70,23 @@ with everything these scripts need. Nothing else is required.
 
 ---
 
+## What this never does to your computer
+
+The tool is a folder plus your own record. It does **not** install packages, edit your settings, add a
+background service, or write files outside its own folder. Scratch and temporary files stay in the folder,
+in paths git ignores (`charters/footprint.md`).
+
+If a job is genuinely impossible without something, the assistant must name it, say why, say what it changes,
+say how it comes off, offer the free option — and wait for your yes. Whatever you approve is written into
+`store/footprint.md`, and `scripts/uninstall.sh` prints that list when you remove the tool.
+
+The only real dependency is the AI assistant you already use.
+
 ## What "installed" means here
 
 | It does | It does not |
 |---|---|
-| creates `store/` — your package, its own git repository | install a background service |
+| creates `store/` — your package, its own git repository | install a background service, or any package at all |
 | keeps the workspace's GitHub address, so it can update | create an account anywhere |
 | records your environment | phone home, ever |
 | records your environment (see `charters/environment.md`) | send anything over the network |

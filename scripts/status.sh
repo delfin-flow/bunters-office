@@ -175,6 +175,17 @@ else
 fi
 
 note ""
+note "-- host footprint (charters/footprint.md) --"
+FOOT="$STORE/footprint.md"
+if [ -f "$FOOT" ]; then
+  n=$(awk -F'|' 'NF>2 && $2 !~ /^-+$/ && $2 !~ /what/ && $2 !~ /^[[:space:]]*$/ {c++} END{print c+0}' "$FOOT")
+  if [ "$n" -eq 0 ]; then note "  repo-only: nothing was added to this machine"
+  else note "  $n item(s) added outside the repository — scripts/uninstall.sh lists them with their removal"; fi
+else
+  note "  no footprint record — run scripts/install.sh again or copy templates/store/footprint.md"
+fi
+
+note ""
 note "-- local adaptations --"
 if [ -f "$STORE/adaptations.md" ]; then
   ad=$(grep '^## ' "$STORE/adaptations.md" 2>/dev/null | grep -vc '^## YYYY-' || true); ad=${ad:-0}

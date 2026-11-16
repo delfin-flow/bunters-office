@@ -3,8 +3,11 @@
 # of personal data — that is exactly what this line protects.
 /store/
 
-# Pack output and scratch
+# Scratch, caches and generated output live ONLY here (charters/footprint.md).
+# Nothing of ours may be written outside this repository.
 build/
+.tmp/
+.cache/
 *.zip
 !templates/pack/*.zip
 .DS_Store
