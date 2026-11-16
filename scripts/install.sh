@@ -1,95 +1,102 @@
 #!/usr/bin/env bash
-# Purpose: turn a clone of the template into the owner's own private record repository.
-# Usage: scripts/install.sh <target-dir>   |   scripts/install.sh --in-place
-# Notes: The ONLY place git history is initialised or rewritten. An agent must not do this;
-#        it points the owner here instead. Nothing outside <target-dir> is touched.
+# Purpose: set up the private package (store/) beside the workspace, and record the machine.
+# Usage: scripts/install.sh              (in this clone — the normal path)
+#        scripts/install.sh <dir>        (clone the workspace there first, then set up)
+# Notes: Creates a SECOND git repository inside store/ (charters/package.md). The workspace keeps its
+#        upstream remote so it can check for and apply updates (scripts/version.sh, scripts/update.sh).
+#        An agent must not run this on its own initiative; it points the owner here (INSTALL.md).
 set -euo pipefail
 
 ROOT=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)
 TARGET=${1:-}
 
-usage() {
-  cat <<'USAGE'
-usage: scripts/install.sh <target-dir>
-       scripts/install.sh --in-place     (this clone becomes the record)
+finish() {
+  cat <<'NEXT'
 
-Creates a private record repository containing the workspace contracts, templates and scripts,
-plus an empty-but-shaped store/ that is tracked in git (the upstream template git-ignores it).
-The upstream history is NOT carried over: the record gets a fresh first commit.
-USAGE
-}
+Done. Two separate things now exist, and they update differently:
 
-[ -z "$TARGET" ] && { usage; exit 1; }
-[ "$TARGET" = "--in-place" ] && TARGET="$ROOT"
-case "$TARGET" in -h|--help) usage; exit 0;; esac
-
-if [ ! -f "$ROOT/.bunters-template" ]; then
-  echo "This copy is already installed (no .bunters-template marker)." >&2
-  echo "Nothing to do. Use scripts/status.sh for freshness." >&2
-  exit 1
-fi
-
-echo "Installing from $ROOT"
-echo "             to $TARGET"
-if [ "$TARGET" != "$ROOT" ]; then
-  mkdir -p "$TARGET"
-  if [ -n "$(ls -A "$TARGET" 2>/dev/null | grep -v '^\.git$' || true)" ]; then
-    echo "Refusing: $TARGET is not empty." >&2
-    exit 1
-  fi
-  tar -C "$ROOT" --exclude='./.git' --exclude='./store' --exclude='./build' --exclude='*.zip' -cf - . | tar -C "$TARGET" -xf -
-fi
-
-cd "$TARGET"
-
-# 1. store/ becomes part of this repository (the template's .gitignore excluded it).
-grep -v '^store/$' .gitignore > .gitignore.tmp && mv .gitignore.tmp .gitignore
-{
-  printf '\n# Personal deployment: store/ is tracked here and must never be pushed to the upstream\ntemplate. Keep the upstream remote absent or read-only.\n'
-} >> .gitignore
-
-# 2. Shape an empty record.
-mkdir -p store/inventory store/procedures store/drill
-[ -f store/settings.yaml ] || cp templates/store/settings.yaml store/settings.yaml
-[ -f store/profile.md ]    || cp templates/store/profile.md    store/profile.md
-[ -f store/log.md ]        || cp templates/store/log.md        store/log.md
-[ -f store/authority-map.md ] || cp templates/authority-map.md store/authority-map.md
-[ -f store/inventory/accounts.csv ] || cp templates/inventory/accounts.csv store/inventory/accounts.csv
-[ -f store/inventory/assets.csv ]   || cp templates/inventory/assets.csv   store/inventory/assets.csv
-[ -f store/inventory/dependencies.md ] || cp templates/inventory/dependencies.md store/inventory/dependencies.md
-[ -f store/procedures/provider-step.md ] || cp templates/procedures/provider-step.md store/procedures/provider-step.md
-[ -f store/adaptations.md ] || cp templates/store/adaptations.md store/adaptations.md
-
-# 3. No longer a template.
-rm -f .bunters-template
-
-# 4. Record the machine — once, here, not per session (charters/environment.md).
-bash scripts/doctor.sh || echo "warning: environment probe did not complete — write 'environment: unverified' in store/settings.yaml"
-
-# 5. Fresh history.
-if [ ! -d .git ]; then
-  git init -q
-fi
-git add -A
-git -c user.name="${GIT_AUTHOR_NAME:-$(git config user.name || echo owner)}" \
-    -c user.email="${GIT_AUTHOR_EMAIL:-$(git config user.email || echo owner@localhost)}" \
-    commit -q -m "init: personal continuity record" || true
-if git remote | grep -q '^origin$'; then
-  git remote remove origin
-fi
-
-cat <<'NEXT'
-
-Done. This folder is now your own private record — it lives only on this machine.
+  this folder      the workspace — keeps its GitHub address, so it can check for and apply updates
+  store/           your package — your own record, its own git history and changelog, private
 
 What to do next, in plain words:
-  1. Do not put this folder in a public place. If you ever copy it somewhere, keep it private.
+  1. Keep store/ private. If you ever copy it somewhere, copy it to a private place only.
   2. Open this folder in your AI assistant and say: "start the record".
-     It will ask how you prefer to give information before asking for any.
-  3. Whenever you have a spare hour: scripts/status.sh tells you what has gone out of date.
-  4. To make the handover pack: scripts/pack-build.sh, then scripts/pack-verify.sh.
+     It asks how you would prefer to give information before asking for any of it.
+  3. scripts/status.sh          what has gone out of date
+     scripts/version.sh         is there a newer version of the workspace?
+     scripts/update.sh          apply it (asks first; never touches store/)
+     scripts/package-export.sh  make the ZIP for someone else to use
+  4. Moved to another computer or upgraded the system? scripts/doctor.sh --check records it again.
 
-If your computer changes or you upgrade the system: scripts/doctor.sh --check records it again.
-
-To undo all of this: scripts/uninstall.sh — it never deletes your record.
+To undo the setup: scripts/uninstall.sh — it never deletes your record.
 NEXT
+}
+
+setup_record() { # $1 = workspace root
+  local root=$1
+  cd "$root"
+  if [ -f .bunters-template ]; then
+    echo "  template marker removed"
+    rm -f .bunters-template
+  fi
+
+  mkdir -p store/inventory store/procedures store/drill
+  [ -f store/settings.yaml ] || cp templates/store/settings.yaml store/settings.yaml
+  [ -f store/profile.md ]    || cp templates/store/profile.md    store/profile.md
+  [ -f store/log.md ]        || cp templates/store/log.md        store/log.md
+  [ -f store/CHANGELOG.md ]  || cp templates/store/CHANGELOG.md  store/CHANGELOG.md
+  [ -f store/adaptations.md ] || cp templates/store/adaptations.md store/adaptations.md
+  [ -f store/authority-map.md ] || cp templates/authority-map.md store/authority-map.md
+  [ -f store/inventory/accounts.csv ] || cp templates/inventory/accounts.csv store/inventory/accounts.csv
+  [ -f store/inventory/assets.csv ]   || cp templates/inventory/assets.csv   store/inventory/assets.csv
+  [ -f store/inventory/dependencies.md ] || cp templates/inventory/dependencies.md store/inventory/dependencies.md
+  [ -f store/procedures/provider-step.md ] || cp templates/procedures/provider-step.md store/procedures/provider-step.md
+
+  # The package is its own repository: versioned, changelogged, private (charters/package.md).
+  if [ ! -d store/.git ]; then
+    git -C store init -q
+    printf '.DS_Store\n' > store/.gitignore
+    git -C store add -A
+    git -C store -c user.name="${GIT_AUTHOR_NAME:-$(git config user.name || echo owner)}" \
+                  -c user.email="${GIT_AUTHOR_EMAIL:-$(git config user.email || echo owner@localhost)}" \
+                  commit -q -m "init: package (record) for $(sed -n 's/^entity_name:[[:space:]]*//p' store/settings.yaml | head -1 | sed 's/^"//; s/"$//')" || true
+    echo "  package initialised: store/ is its own git repository"
+  else
+    echo "  package already versioned: store/.git"
+  fi
+
+  # The workspace keeps (or gains) the upstream address so it can self-update.
+  if git rev-parse --git-dir >/dev/null 2>&1; then
+    if git remote get-url origin >/dev/null 2>&1; then
+      echo "  workspace upstream kept: $(git remote get-url origin)"
+    else
+      echo "  note: this workspace has no 'origin' remote — scripts/version.sh cannot compare versions"
+    fi
+  fi
+
+  bash scripts/doctor.sh || echo "  warning: environment probe did not complete — write 'environment: unverified' in store/settings.yaml"
+}
+
+echo "bunters-office installation"
+
+if [ -z "$TARGET" ]; then
+  setup_record "$ROOT"
+  finish
+  exit 0
+fi
+
+case "$TARGET" in -h|--help) echo "usage: scripts/install.sh [<dir>]"; exit 0;; esac
+
+origin=$(git -C "$ROOT" remote get-url origin 2>/dev/null || true)
+if [ -n "$origin" ]; then
+  echo "  cloning workspace from $origin"
+  git clone --quiet "$origin" "$TARGET"
+else
+  echo "  note: no 'origin' remote here — copying instead. This copy will not be able to update itself."
+  mkdir -p "$TARGET"
+  [ -z "$(ls -A "$TARGET" 2>/dev/null | grep -v '^\.git$' || true)" ] || { echo "Refusing: $TARGET is not empty." >&2; exit 1; }
+  tar -C "$ROOT" --exclude='./.git' --exclude='./store' --exclude='./build' --exclude='*.zip' -cf - . | tar -C "$TARGET" -xf -
+  git -C "$TARGET" init -q
+fi
+setup_record "$TARGET"
+finish

@@ -6,7 +6,7 @@ stranger drill. Status: ⬜ todo · 🔄 in progress · ✅ done.
 **Current state (2026-11-16):** the scaffold exists and its tools run. Installation records the machine
 (`scripts/doctor.sh`) so no session has to guess the platform or the available tools. `scripts/install.sh` creates a
 private record repository from the template (verified in a clean directory), `status.sh` reports stale
-and incomplete entries, `pack-build.sh` assembles the pack, `pack-verify.sh` checks checksums, credential-
+and incomplete entries, `package-export.sh` assembles the pack, `bundle-verify.sh` checks checksums, credential-
 shaped material, coverage and age (includes a passing guard test against a planted private key), and
 `uninstall.sh` reverts to template state without touching the record.
 
@@ -18,7 +18,7 @@ where without reading the charters. Met by inspection — the templates are the 
 
 ## S2 — Deterministic tools ✅ (v0)
 
-`install.sh`, `uninstall.sh`, `status.sh`, `pack-build.sh`, `pack-verify.sh`, offline, no model, no
+`install.sh`, `uninstall.sh`, `status.sh`, `package-export.sh`, `bundle-verify.sh`, offline, no model, no
 network. **Acceptance:** install in a clean directory, populate a sample record, build and verify a pack,
 revert — verified 2026-11-16.
 

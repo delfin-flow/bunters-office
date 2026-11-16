@@ -37,7 +37,7 @@ Windows user who has never seen a terminal.
    cannot be done by a script (nothing today — record the reason in `docs/decisions.md` before adding one).
 6. **Absence degrades, it does not fail.** Missing `zip` means the pack cannot be built *yet* — say that,
    offer the free install, and carry on collecting the record. Missing `python3` only costs a summary in
-   `pack-verify.sh`. Missing git entirely means the manual path (`INSTALL.md`, third case) and
+   `bundle-verify.sh`. Missing git entirely means the manual path (`INSTALL.md`, third case) and
    `environment: unverified`.
 7. **No silent upgrades.** Re-probing is a deliberate act (`scripts/doctor.sh --check`), and the old record
    is replaced with the new one plus a line in `store/log.md`.

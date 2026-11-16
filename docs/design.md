@@ -32,7 +32,7 @@ A **continuity passport + stranger drill**:
 | Part | Lives in | Why |
 |---|---|---|
 | Record (profile, inventory, dependency map, authority map, procedures) | `store/` | the facts; portable, diffable, human-readable |
-| Pack | built by `scripts/pack-build.sh` | the artefact that survives without this repository |
+| Pack | built by `scripts/package-export.sh` | the artefact that survives without this repository |
 | Drill | `store/drill/` | the only evidence that an alternate can act |
 | Contracts | `charters/` | the rules that keep the record true and the agent honest |
 | Deterministic tools | `scripts/` | install, status, pack build, pack verify — no model needed |

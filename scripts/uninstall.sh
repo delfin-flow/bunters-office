@@ -13,13 +13,13 @@ echo "repo: $ROOT"
 echo
 echo "This will:"
 echo "  - restore the template marker (.bunters-template)"
-echo "  - git-ignore store/ again (as upstream does)"
-echo "  - remove build/ and any generated pack zip inside the repo"
+echo "  - remove build/ and any exported bundle zip inside the workspace"
+echo "  - leave store/ exactly as it is, INCLUDING its own git history and changelog"
 if [ "$PURGE" = "--purge" ]; then
   echo "  - MOVE store/ to ../store-export-$(date +%F)/ (the record is not deleted)"
 fi
 echo
-echo "It will NOT touch: your git history, ~/.config, the OS, your vault, or any network service."
+echo "It will NOT touch: store/.git, your record, the workspace's upstream remote, ~/.config, the OS, or any network service."
 printf 'Continue? [y/N] '
 read -r answer
 case "$answer" in y|Y|yes|YES) ;; *) echo "Aborted."; exit 1;; esac
@@ -42,5 +42,5 @@ fi
 touch .bunters-template
 
 echo
-echo "Reverted to template state. Your record is still in store/ (git-ignored now)."
+echo "Reverted to template state. Your package is untouched in store/ (its own git repository)."
 echo "To make it a template again for someone else: scripts/install.sh <dir>"

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# Purpose: build the portable handover pack (charters/pack.md) from store/ — deterministic, offline.
-# Usage: scripts/pack-build.sh [output-dir]      (default: pack_output in store/settings.yaml)
+# Purpose: build the portable handover pack (charters/package.md) from store/ — deterministic, offline.
+# Usage: scripts/package-export.sh [output-dir]      (default: package_output in store/settings.yaml)
 # Notes: The pack is generated output. Correct the record, then rebuild. Never edit the pack by hand.
 set -euo pipefail
 
@@ -18,12 +18,21 @@ esc() { printf '%s' "$1" | sed 's/[&|\\]/\\&/g'; }
 [ -f "$ROOT/.bunters-template" ] && die "this is the upstream template — nothing to pack. Install a record first (scripts/install.sh)."
 [ -f "$STORE/profile.md" ] || die "no store/profile.md — the record has not been started (charters/first-run.md)."
 
+# The package is its own repository (charters/package.md): its commit and changelog travel with the bundle.
+PKG_COMMIT=""; PKG_DIRTY="unknown"
+if git -C "$STORE" rev-parse --git-dir >/dev/null 2>&1; then
+  PKG_COMMIT=$(git -C "$STORE" rev-parse --short HEAD 2>/dev/null || echo "")
+  [ -z "$(git -C "$STORE" status --porcelain 2>/dev/null)" ] && PKG_DIRTY=false || PKG_DIRTY=true
+fi
+WS_VERSION=$(cat "$ROOT/VERSION" 2>/dev/null | tr -d '[:space:]'); WS_VERSION=${WS_VERSION:-unknown}
+CHANGELOG_HEAD=$(grep -m1 '^## ' "$STORE/CHANGELOG.md" 2>/dev/null | sed 's/^## //' || true); CHANGELOG_HEAD=${CHANGELOG_HEAD:-none}
+
 ENTITY=$(setting entity_name "unknown")
 ENTITY_TYPE=$(setting entity_type "unknown")
 JURISDICTION=$(setting jurisdiction "unknown")
 ALTERNATE=$(setting alternate_name "unknown")
 ALTERNATE_REL=$(setting alternate_relationship "unknown")
-OUT_ARG=${1:-$(setting pack_output "../bunters-office-pack")}
+OUT_ARG=${1:-$(setting package_output "../bunters-office-package")}
 case "$OUT_ARG" in /*) OUT=$OUT_ARG;; *) OUT="$ROOT/$OUT_ARG";; esac
 
 ACCT="$STORE/inventory/accounts.csv"
@@ -51,7 +60,7 @@ for d in $(awk -F, 'NR>1 && $14!="" {print $14}' "$ACCT"); do
 done
 
 STAGE_ROOT=$(mktemp -d)
-STAGE="$STAGE_ROOT/bunters-office-pack"
+STAGE="$STAGE_ROOT/bunters-office-package"
 mkdir -p "$STAGE"/{inventory,procedures,recovery,evidence/drill}
 
 cp "$STORE/profile.md" "$STAGE/business-overview.md"
@@ -112,6 +121,8 @@ Not yet recorded. What a reader needs, and what the record must eventually conta
 - the machines that would have to be rebuilt, and from what.
 STUB
 
+[ -f "$STORE/CHANGELOG.md" ] && cp "$STORE/CHANGELOG.md" "$STAGE/CHANGELOG.md"
+
 if [ -f "$STORE/verification-log.csv" ]; then cp "$STORE/verification-log.csv" "$STAGE/evidence/verification-log.csv"; else
   printf 'entry,what_was_checked,when,by_whom,result,evidence\n' > "$STAGE/evidence/verification-log.csv"
 fi
@@ -140,6 +151,8 @@ cat > "$STAGE/manifest.json" <<MANIFEST
     "note": "Free and open-source. The repository holds the method; this pack is the copy that survives. Report problems there - never include pack contents."
   },
   "generated_at": "$NOW",
+  "workspace": { "version": "$WS_VERSION" },
+  "package": { "commit": "${PKG_COMMIT:-unversioned}", "uncommitted_changes": "$PKG_DIRTY", "changelog_head": "$(printf '%s' "$CHANGELOG_HEAD" | sed 's/["\\]/ /g')" },
   "entity": { "name": "$(printf '%s' "$ENTITY" | sed 's/["\\]/ /g')", "type": "$ENTITY_TYPE", "jurisdiction": "$JURISDICTION" },
   "alternate": { "name": "$(printf '%s' "$ALTERNATE" | sed 's/["\\]/ /g')", "relationship": "$ALTERNATE_REL", "authority_on_file": "unknown" },
   "counts": { "accounts": $ACCOUNTS, "assets": $ASSETS_N, "procedures": $PROCEDURES, "drills": $DRILLS },
@@ -152,7 +165,7 @@ MANIFEST
 
 mkdir -p "$(dirname "$OUT")"
 rm -f "$OUT.zip"
-( cd "$STAGE_ROOT" && zip -qr "$OUT.zip" bunters-office-pack )
+( cd "$STAGE_ROOT" && zip -qr "$OUT.zip" bunters-office-package )
 rm -rf "$STAGE_ROOT"
 
 echo "pack:   $OUT.zip"
@@ -161,4 +174,4 @@ echo "counts: accounts=$ACCOUNTS assets=$ASSETS_N procedures=$PROCEDURES drills=
 echo "chain:  $CHAIN_VERIFIED/$CHAIN_TOTAL verified · unknown authority: $UNKNOWN_AUTH · stale(>12m): $STALE"
 echo "dates:  last review $LAST_REVIEW · last drill $DRILL_LAST"
 if [ "$DRILLS" -eq 0 ]; then echo "WARNING: never drilled — the pack states this, and it should be true of the situation, not permanent."; fi
-echo "verify: scripts/pack-verify.sh \"$OUT.zip\""
+echo "verify: scripts/bundle-verify.sh \"$OUT.zip\""

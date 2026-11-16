@@ -1,5 +1,6 @@
-# The person's own record lives in store/. The upstream template must never
-# receive it — install.sh unignores store/ in the copy it turns into a private repo.
+# store/ is the person's package: its own git repository, never part of this one
+# (charters/package.md). The workspace keeps its upstream remote, so it must stay clean
+# of personal data — that is exactly what this line protects.
 store/
 
 # Pack output and scratch

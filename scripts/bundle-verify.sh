@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 # Purpose: check a built pack before it is stored or handed over — checksums, credential-shaped material, coverage, staleness.
-# Usage: scripts/pack-verify.sh <pack.zip>
+# Usage: scripts/bundle-verify.sh <pack.zip>
 # Notes: read-only. A pass means "structurally sound", not "the business is ready" — only a drill proves that.
 set -euo pipefail
 
 ZIP=${1:-}
-[ -z "$ZIP" ] && { echo "usage: scripts/pack-verify.sh <pack.zip>" >&2; exit 1; }
+[ -z "$ZIP" ] && { echo "usage: scripts/bundle-verify.sh <pack.zip>" >&2; exit 1; }
 [ -f "$ZIP" ] || { echo "error: $ZIP not found" >&2; exit 1; }
 
 fail=0; warn=0

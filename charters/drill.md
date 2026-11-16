@@ -36,7 +36,7 @@ performs a safe task and you record what happened. The drill is the product's ac
 | Corrections | what changed in `store/` as a result |
 | Verdict | what a reader can now rely on — and what they still cannot |
 
-Then re-run `scripts/pack-build.sh`. The pack's `evidence/drill/` is the proof a future reader sees.
+Then re-run `scripts/package-export.sh`. The pack's `evidence/drill/` is the proof a future reader sees.
 
 ## What the drill must never become
 

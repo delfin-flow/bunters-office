@@ -28,7 +28,7 @@ another person could continue it, hold it steady, or wind it down.
 | 7 | `charters/authority.md` | who may legally do what, and the stop-and-refer points |
 | 8 | `charters/secrets.md` | locators only; borrow a vault, never build one |
 | 9 | `charters/environment.md` | the machine, recorded once at installation — never guessed per session |
-| 10 | `charters/pack.md` | the portable pack — the thing that survives |
+| 10 | `charters/package.md` | the portable pack — the thing that survives |
 | 11 | `charters/drill.md` | proving a stranger can actually do it |
 | 12 | `charters/cadence.md` | last run, re-verification, reminders, rotation, backups |
 | 13 | `charters/secondary.md` | how the alternate is guided (and what is never simulated) |
