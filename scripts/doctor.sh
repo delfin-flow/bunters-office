@@ -67,9 +67,9 @@ if [ "$MODE" = --print ]; then
   exit 0
 fi
 
-if [ -f "$ROOT/.bunters-template" ]; then
-  echo "This is the upstream template — there is no record to write to yet." >&2
-  echo "Install a record first (scripts/install.sh <dir>), or use: scripts/doctor.sh --print" >&2
+if [ ! -d "$STORE" ]; then
+  echo "No store/ yet — this is the workspace without a record." >&2
+  echo "Run scripts/install.sh first, or use: scripts/doctor.sh --print" >&2
   exit 1
 fi
 mkdir -p "$STORE" || exit 1

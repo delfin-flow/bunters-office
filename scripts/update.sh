@@ -9,7 +9,7 @@ ROOT=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)
 cd "$ROOT"
 CONFIRM=${1:-}
 
-[ -f .bunters-template ] || [ -d .git ] || { echo "error: not a git checkout — nothing to update" >&2; exit 1; }
+[ -d .git ] || { echo "error: not a git checkout — nothing to update" >&2; exit 1; }
 origin=$(git remote get-url origin 2>/dev/null || true)
 [ -n "$origin" ] || { echo "error: no 'origin' remote — this copy cannot be updated (INSTALL.md)" >&2; exit 1; }
 
@@ -44,7 +44,7 @@ git merge --ff-only "$target" >/dev/null
 echo "updated: $before → $(git rev-parse --short HEAD) ($(cat VERSION | tr -d '[:space:]'))"
 
 # The machine may have changed too (OS upgrade since installation).
-if [ -x scripts/doctor.sh ] && [ ! -f .bunters-template ]; then
+if [ -x scripts/doctor.sh ] && [ -d store ]; then
   bash scripts/doctor.sh --check | sed 's/^/  /' || true
 fi
 

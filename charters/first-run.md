@@ -7,7 +7,7 @@ do, in what order, and how does a non-technical person get information into it w
 
 | Signal | State | Behaviour |
 |---|---|---|
-| `.bunters-template` present | **template** — nobody's record yet | do not collect business facts; explain what this is, then offer installation |
+| no `store/` at all | **template** — nobody's record yet | do not collect business facts; explain what this is, then offer installation |
 | no `store/` | **fresh** | follow this charter |
 | `store/profile.md` is still the template text | **started but empty** | summarise what is missing, ask to continue |
 | `store/profile.md` filled, `store/log.md` has entries | **in progress** | read the log, run `scripts/status.sh`, report staleness |

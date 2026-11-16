@@ -7,13 +7,9 @@ set -euo pipefail
 ROOT=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)
 STORE="$ROOT/store"
 
-if [ -f "$ROOT/.bunters-template" ]; then
-  echo "This is still the upstream template — no personal record here."
-  echo "The owner installs a record with: scripts/install.sh <dir>"
-  exit 0
-fi
 if [ ! -d "$STORE" ]; then
-  echo "No store/ yet: this deployment has not started its record (see charters/first-run.md)."
+  echo "No store/ yet: this is the workspace without a record, not a deployment (charters/first-run.md)."
+  echo "Installing one: scripts/install.sh   (see INSTALL.md)"
   exit 0
 fi
 

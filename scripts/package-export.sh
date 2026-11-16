@@ -15,7 +15,7 @@ setting() {
 }
 esc() { printf '%s' "$1" | sed 's/[&|\\]/\\&/g'; }
 
-[ -f "$ROOT/.bunters-template" ] && die "this is the upstream template — nothing to pack. Install a record first (scripts/install.sh)."
+[ ! -d "$STORE" ] && die "no store/ yet — nothing to export. Install first (scripts/install.sh), then start the record."
 [ -f "$STORE/profile.md" ] || die "no store/profile.md — the record has not been started (charters/first-run.md)."
 
 # The package is its own repository (charters/package.md): its commit and changelog travel with the bundle.

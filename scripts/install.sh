@@ -71,12 +71,6 @@ setup_record() { # $1 = workspace root
 
   bash scripts/doctor.sh || echo "  warning: environment probe did not complete — write 'environment: unverified' in store/settings.yaml"
 
-  # Only now: the folder is no longer a template. If anything above failed, the marker survives so
-  # installation can simply be retried.
-  if [ -f .bunters-template ]; then
-    rm -f .bunters-template
-    echo "  template marker removed — this is now a private record"
-  fi
 }
 
 echo "bunters-office installation"

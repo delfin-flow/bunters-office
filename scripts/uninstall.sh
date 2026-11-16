@@ -12,7 +12,6 @@ echo "== bunters-office uninstall =="
 echo "repo: $ROOT"
 echo
 echo "This will:"
-echo "  - restore the template marker (.bunters-template)"
 echo "  - remove build/ and any exported bundle zip inside the workspace"
 echo "  - leave store/ exactly as it is, INCLUDING its own git history and changelog"
 if [ "$PURGE" = "--purge" ]; then
@@ -36,11 +35,7 @@ fi
 rm -rf build
 find . -maxdepth 2 -name '*.zip' -not -path './templates/*' -delete 2>/dev/null || true
 
-if ! grep -q '^store/$' .gitignore 2>/dev/null; then
-  { printf '\nstore/\n'; } >> .gitignore
-fi
-touch .bunters-template
-
 echo
-echo "Reverted to template state. Your package is untouched in store/ (its own git repository)."
-echo "To make it a template again for someone else: scripts/install.sh <dir>"
+echo "Done. The workspace files and their upstream remote are unchanged; nothing was deleted from store/."
+echo "Your package is still in store/ as its own git repository."
+echo "This helper only removed generated output (build/, exported bundle zips)."
