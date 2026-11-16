@@ -1,0 +1,3 @@
+id,asset,kind,owner_entity,where,successor_route,last_verified,notes
+site-1,main website,site,company,EXAMPLE host / repo,redeploy from repo; provider support route,2026-11-16,EXAMPLE ROW - replace
+code-1,application repository,code,company,EXAMPLE git host under company org,transfer ownership via provider settings; add alternate as owner,2026-11-16,EXAMPLE ROW - replace

@@ -1,0 +1,3 @@
+id,service,provider,entity,purpose,criticality,billing_owner,human_owner,recovery_route,mfa,secret_ref,authority_class,renewal_date,last_verified,provider_policy_url,notes
+domain,business domain,EXAMPLE registrar,company,address and identity on the internet,chain,company card,owner,provider account email + support form,app + recovery codes,bitwarden://business/registrar,company-alternate,2027-03-14,2026-11-16,https://example.com/help,EXAMPLE ROW - replace; semicolons instead of commas
+hosting,website hosting,EXAMPLE host,company,sites and deploys,chain,company card,owner,support portal + account email,app,bitwarden://business/hosting,owner-only,2027-01-02,2026-11-16,https://example.com/help,EXAMPLE ROW - replace

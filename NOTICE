@@ -1,0 +1,7 @@
+bunters-office
+Copyright 2026 DelfinFlow
+
+Licensed under the Apache License, Version 2.0 (see LICENSE).
+This repository contains no credential material and no personal data. The
+`store/` directory is where a user's own record lives; in the upstream template
+it is git-ignored and empty by design.

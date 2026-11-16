@@ -1,0 +1,10 @@
+{
+  "schema_version": 1,
+  "product": "bunters-office",
+  "generated_at": "{{GENERATED_AT}}",
+  "entity": { "name": "{{ENTITY}}", "type": "{{ENTITY_TYPE}}", "jurisdiction": "{{JURISDICTION}}" },
+  "alternate": { "name": "{{ALTERNATE}}", "relationship": "{{ALTERNATE_RELATIONSHIP}}", "authority_on_file": "unknown" },
+  "counts": { "accounts": {{ACCOUNTS}}, "assets": {{ASSETS}}, "procedures": {{PROCEDURES}}, "drills": {{DRILLS}} },
+  "coverage": { "chain_total": {{CHAIN_TOTAL}}, "chain_verified": {{CHAIN_VERIFIED}}, "unknown_authority": {{UNKNOWN_AUTHORITY}}, "stale_entries": {{STALE}} },
+  "review": { "last_full_review": "{{LAST_REVIEW}}", "last_drill": "{{LAST_DRILL}}" }
+}

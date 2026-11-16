@@ -1,0 +1,9 @@
+# The person's own record lives in store/. The upstream template must never
+# receive it — install.sh unignores store/ in the copy it turns into a private repo.
+store/
+
+# Pack output and scratch
+build/
+*.zip
+!templates/pack/*.zip
+.DS_Store
