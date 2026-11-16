@@ -114,7 +114,14 @@ for a non-technical person and links every agent-facing file; `index.md` carries
 route. **Acceptance:** an AI given only the ZIP states what this is, who produced it and where to report a
 problem. Verified by building the pack and reading it — 2026-11-16.
 
-## S8 — Upstream loop ⬜
+## S8 — Upstream loop 🔄 (published 2026-11-16)
+
+The repository is public at `https://github.com/delfin-flow/bunters-office` (Apache-2.0, topics set) and
+the site's top navigation links to its README. `.github/ISSUE_TEMPLATE/compatibility.yml` is live.
+**Still open:** no report has been triaged yet, so the loop is published but unproven — the first real
+compatibility report is the acceptance.
+
+## S8b — Upstream loop (old note kept for the record) ⬜
 
 `index.md` and `WORKSPACE.md` describe the issue-first rule; the repository is not yet published. **Acceptance:**
 the public repo exists with an issue template that asks for version, file and expected/actual — and no
