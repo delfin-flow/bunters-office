@@ -59,8 +59,13 @@ mkdir -p store/inventory store/procedures store/drill
 [ -f store/inventory/dependencies.md ] || cp templates/inventory/dependencies.md store/inventory/dependencies.md
 [ -f store/procedures/provider-step.md ] || cp templates/procedures/provider-step.md store/procedures/provider-step.md
 
-# 3. No longer a template; fresh history.
+# 3. No longer a template.
 rm -f .bunters-template
+
+# 4. Record the machine — once, here, not per session (charters/environment.md).
+bash scripts/doctor.sh || echo "warning: environment probe did not complete — write 'environment: unverified' in store/settings.yaml"
+
+# 5. Fresh history.
 if [ ! -d .git ]; then
   git init -q
 fi
@@ -74,14 +79,16 @@ fi
 
 cat <<'NEXT'
 
-Installed. This is now your own private repository — no upstream remote.
+Done. This folder is now your own private record — it lives only on this machine.
 
-Next:
-  1. Make it private BEFORE any data goes in (a local-only repo is the safe default;
-     if you push it, push to a private remote you control).
-  2. Open the repository in your AI client and say: "start the record".
-  3. scripts/status.sh shows what is stale or missing at any time.
-  4. scripts/pack-build.sh builds the handover pack, scripts/pack-verify.sh checks it.
+What to do next, in plain words:
+  1. Do not put this folder in a public place. If you ever copy it somewhere, keep it private.
+  2. Open this folder in your AI assistant and say: "start the record".
+     It will ask how you prefer to give information before asking for any.
+  3. Whenever you have a spare hour: scripts/status.sh tells you what has gone out of date.
+  4. To make the handover pack: scripts/pack-build.sh, then scripts/pack-verify.sh.
 
-Removal: scripts/uninstall.sh reverts this repository to template state and NEVER deletes store/.
+If your computer changes or you upgrade the system: scripts/doctor.sh --check records it again.
+
+To undo all of this: scripts/uninstall.sh — it never deletes your record.
 NEXT

@@ -3,7 +3,8 @@
 **Scope:** v0 — a workspace contract, templates and deterministic tools for a continuity passport and a
 stranger drill. Status: ⬜ todo · 🔄 in progress · ✅ done.
 
-**Current state (2026-11-16):** the scaffold exists and its tools run. `scripts/install.sh` creates a
+**Current state (2026-11-16):** the scaffold exists and its tools run. Installation records the machine
+(`scripts/doctor.sh`) so no session has to guess the platform or the available tools. `scripts/install.sh` creates a
 private record repository from the template (verified in a clean directory), `status.sh` reports stale
 and incomplete entries, `pack-build.sh` assembles the pack, `pack-verify.sh` checks checksums, credential-
 shaped material, coverage and age (includes a passing guard test against a planted private key), and
@@ -20,6 +21,21 @@ where without reading the charters. Met by inspection — the templates are the 
 `install.sh`, `uninstall.sh`, `status.sh`, `pack-build.sh`, `pack-verify.sh`, offline, no model, no
 network. **Acceptance:** install in a clean directory, populate a sample record, build and verify a pack,
 revert — verified 2026-11-16.
+
+## S10 — Environment recorded at installation ✅ (v0)
+
+`scripts/doctor.sh` probes platform, shell, the tools the scripts actually use, and any free vault tooling
+already present; writes `store/environment.md` and the `platform` / `platform_checked` / `tools_missing`
+keys; `--check` re-probes and logs. `install.sh` runs it, so a session never has to guess. **Acceptance:**
+a fresh install records the platform, and `status.sh` reports it (and flags a missing or stale record).
+Verified 2026-11-16 on Debian 13; macOS and Windows-Git-Bash branches are written but **not yet tested on
+those platforms** — that is the honest state, and `docs/decisions.md` D10 says why the branch matters.
+
+## S11 — Plain-language pass for people who are not IT ⬜
+
+`INSTALL.md`, `README.md`, `AGENTS.md`, `charters/first-run.md` and the pack's `ai-guide.md` now assume a
+non-technical reader. **Acceptance:** someone who has never used a terminal completes installation and the
+first record section without asking what a word means — or the words are changed until they do.
 
 ## S3 — First-run detection and collection modes ⬜
 
@@ -67,8 +83,9 @@ broker over an existing credential proxy (never a general-purpose agent).
 
 ## Later rungs (per the promotion ladder)
 
-Skills per record part; a local web-form/survey capability (possibly its own reusable module); a binary
-packaging of the scripts. Each only after the rung below it is proven.
+Skills per record part; a local web-form/survey capability (possibly its own reusable module) — the first
+candidate for a *binary*, because a browser form is one place a script stops being enough
+(`docs/decisions.md` D8). Each only after the rung below it is proven.
 
 ## Handoffs and continuity
 

@@ -46,3 +46,28 @@ Structural, not stylistic: the pack must be safe to lose, and non-response is no
 
 Everything the alternate needs must be inside the ZIP, offline-readable, and usable by a foreign AI with
 no context. **Reverses never.**
+
+## D8 — Free and open source first; scripts, not binaries (owner, 2026-11-16)
+
+Every tool the workspace names has a free, open-source path, and no paid service may be required for it
+to function. The Bunter itself is Markdown plus small readable scripts: auditable, editable on any
+machine, nothing opaque to download, one language across platforms. A binary is added only when a
+documented job cannot be done by a script — none today. **Reverses if:** a job appears (a native
+form/survey UI, a hardware-backed key operation) that a script genuinely cannot do; then the binary is
+recorded here with its reason, its free source and its removal path.
+
+## D9 — Two ways in, and the assistant may install (2026-11-16)
+
+**Path A:** the person hands `INSTALL.md` to their assistant, which asks three plain questions, runs
+`scripts/install.sh`, and reads back `store/environment.md`. **Path B:** a terminal, two lines. **Path C
+(degenerate):** clone and load in an agent with no installation — the documents still work, the
+deterministic tools do not, and the state is recorded as `environment: unverified` and said out loud.
+The assistant may *drive* installation; it may never rewrite git history itself (`D4`).
+
+## D10 — The environment is recorded at installation, not detected per session (owner, 2026-11-16)
+
+An assistant cannot see the machine, and a chat client may have no terminal. Detection per session is
+also a token and trust cost that produces different answers in different sessions. So `scripts/doctor.sh`
+writes `store/environment.md` once (platform, shell, tools present/missing, optional vault tooling, date),
+and every session reads that file. Re-probing is deliberate: `--check`, logged. **Reverses never**; the
+probe's field list may grow.

@@ -9,6 +9,33 @@ A written contract plus deterministic tools for one job: **a person who was not 
 business must be able to take over, hold steady, or wind down someone else's digital infrastructure.**
 The record is data (`store/`); the pack is the artefact that survives; the drill is the proof.
 
+## Who you are talking to
+
+**Assume a person who is not technical, and is having a bad week.** This product's whole reason to exist is
+that the person acting is not the person who built the business.
+
+- Say what a thing *is* the first time you use its name: *"a terminal — the black window where you type
+  commands"*, *"a domain — the address people type to reach the site"*.
+- **One question at a time.** Never a numbered list of questions for them to answer in bulk.
+- Never ask them to interpret an error. Ask them to **copy it to you**.
+- Give exact, copy-pasteable commands, for **their** recorded platform, and say which platform that is.
+- Prefer doing the work yourself; ask them to run something only when you cannot.
+- Never sound certain about a provider's process, a legal outcome, or a recovery that has not been tested.
+
+## The machine is recorded, not guessed
+
+Read `store/environment.md` **before** writing any command (contract: `charters/environment.md`). It is
+written once, at installation, by `scripts/doctor.sh`. Never re-detect the operating system per session —
+a chat client may have no terminal at all, and two sessions must not give the same person two different
+answers. If the file is missing or says `unverified`, say so plainly and ask the three installation
+questions from `INSTALL.md` instead of assuming.
+
+**Free and open source first.** When something is genuinely needed, name the free option before any paid
+one, say it costs nothing, and say what it does. No paid service may be required for this workspace to
+work. **Scripts, not binaries:** the Bunter is Markdown plus small readable scripts — auditable, editable,
+portable, nothing opaque to download. A binary is added only when a documented job cannot be done by a
+script, and only with the reason recorded in `docs/decisions.md`.
+
 ## Non-negotiables
 
 1. **No impersonation, ever.** Never instruct anyone to log in as, sign as, or otherwise act as another

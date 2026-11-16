@@ -33,15 +33,24 @@ needs no repository, no software and no network to be read and used.
 
 ## Start here
 
-1. Clone this repository and open it in whatever AI client you use (a chat session with file access is
-   enough — no daemon, no account with us).
-2. The agent sees the fresh-run state and **asks how you want to give it information**: chat questions,
-   a Markdown form you fill in, a local web form, or a scripted survey. Nothing is guessed.
-3. `scripts/install.sh <dir>` turns a clone into *your* private repository: fresh history, `store/`
-   tracked, upstream removed. **The installer does this, never the agent.**
-4. Run `scripts/status.sh` whenever you have a spare hour; it says what is stale.
-5. `scripts/pack-build.sh` produces the handover pack; `scripts/pack-verify.sh` checks it before you
-   store it anywhere.
+**You do not need to be technical.** There are two ways in, and the first one is the easy one.
+
+1. **Let your assistant install it.** Open this folder in your AI assistant and say:
+   *"Read INSTALL.md and install this for me."* It asks three questions, runs one script, and tells you
+   what it found on your computer. Nothing is added to your system.
+2. **Or do it yourself** if you know what a terminal is: `scripts/install.sh ~/my-record`
+   (two lines in [`INSTALL.md`](INSTALL.md)).
+
+Either way, the next thing you say to the assistant is *"start the record"*. It will ask **how** you want
+to give information — talking it through, a form you fill in, or a survey taken in sittings — before it
+asks for any of it. Nothing is guessed.
+
+Then, whenever you have a spare hour: `scripts/status.sh` says what has gone out of date, and
+`scripts/pack-build.sh` builds the handover pack that another person could actually use.
+
+**No binary, no service, no account.** Everything here is Markdown and short readable scripts, so you (or
+your assistant) can read exactly what it does. Free and open source throughout — the workspace never
+requires a paid tool.
 
 ## Status — honest
 

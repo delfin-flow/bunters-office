@@ -78,6 +78,21 @@ note "entity:       $(setting entity_name '(unset)') / $(setting entity_type '(u
 note "alternate:    $(setting alternate_name '(unset)') ($(setting alternate_relationship '(unset)'))"
 note "preferences:  collection=$(setting collection_mode '(unset)') · reminders=$(setting reminder_channel '(unset)')"
 note "windows:      chain ${CHAIN_MONTHS}m · other ${OTHER_MONTHS}m · drill ${DRILL_MONTHS}m"
+plat=$(setting platform "")
+pchk=$(setting platform_checked "")
+if [ -z "$plat" ]; then
+  note "environment:  NOT RECORDED — run scripts/doctor.sh (charters/environment.md)"; problems=$((problems+1))
+elif [ "$plat" = unverified ]; then
+  note "environment:  UNVERIFIED — this machine was never probed; commands may be for the wrong platform"
+else
+  missing_tools=$(setting tools_missing "")
+  a=$(age_months "$pchk")
+  if [ "$a" != unparsed ] && [ "$a" != unknown ] && [ "$a" -ge 12 ]; then
+    note "environment:  $plat — checked ${a}m ago, re-check with scripts/doctor.sh --check"; problems=$((problems+1))
+  else
+    note "environment:  $plat${missing_tools:+ · missing: $missing_tools}"
+  fi
+fi
 
 last=$(grep '^## ' "$STORE/log.md" 2>/dev/null | tail -1 | sed 's/^## //' || true)
 if [ -n "${last:-}" ]; then

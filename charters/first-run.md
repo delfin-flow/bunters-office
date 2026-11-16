@@ -40,6 +40,13 @@ do not renegotiate it.
 5. **Procedures** — only for the chain steps, and only safe first actions.
 6. **Drill** — a named alternate, one sitting, one task.
 
+## Who you are collecting from
+
+Not a technical person, and not necessarily calm. Assume they do not know what "DNS", "registrar" or
+"repository" means; assume they will be doing this in the evening, tired. One question at a time, plain
+words, and say why each section matters in one sentence before asking for it. If they cannot answer, that
+is a valid answer — record `unknown` and move on. **Never** make them feel behind.
+
 ## Rules
 
 - **One section per sitting** unless the person asks for more; write and log as you go.
