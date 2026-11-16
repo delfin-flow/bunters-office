@@ -3,6 +3,12 @@
 Newest first. Versions are compared against the upstream repository by `scripts/version.sh`; updating is
 `scripts/update.sh` (fast-forward only, never touches `store/`).
 
+## 0.4.1 — 2026-11-17
+
+- **Fix:** `uninstall.sh` printed recorded footprint entries with their spaces stripped (`theonlywaytodoY`,
+  `sudoaptremovex`) — a removal command that cannot be pasted is worse than none. Fields are now trimmed, not
+  squeezed.
+
 ## 0.4.0 — 2026-11-17
 
 - **Zero host footprint by default** (`charters/footprint.md`): no package installs, no dotfiles, no `PATH`,

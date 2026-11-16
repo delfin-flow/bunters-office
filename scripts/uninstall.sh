@@ -44,11 +44,12 @@ if [ -f "$FOOT" ]; then
     echo "  nothing. Removing this tool = deleting this folder and store/ (both are yours)."
     echo "  The only dependency is the AI assistant you already use; nothing was installed for you."
   else
+    trim() { printf '%s' "$1" | sed 's/^[[:space:]]*//; s/[[:space:]]*$//'; }
     printf '%s\n' "$rows" | while IFS='|' read -r _ what where why added removal approved _; do
-      [ -z "${what// }" ] && continue
-      echo "  - ${what// }  at ${where// }"
-      echo "    why: ${why// }  · added: ${added// }  · approved: ${approved// }"
-      echo "    remove with: ${removal// }"
+      what=$(trim "$what"); [ -z "$what" ] && continue
+      echo "  - $what  (at $(trim "$where"))"
+      echo "    why: $(trim "$why") · added: $(trim "$added") · approved: $(trim "$approved")"
+      echo "    remove with: $(trim "$removal")"
     done
   fi
 else
