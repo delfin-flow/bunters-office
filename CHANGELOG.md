@@ -3,7 +3,15 @@
 Newest first. Versions are compared against the upstream repository by `scripts/version.sh`; updating is
 `scripts/update.sh` (fast-forward only, never touches `store/`).
 
-## 0.5.1 — 2026-11-18
+## 0.5.2 — 2026-11-25
+
+- **Origin stated where agents actually read it.** `AGENTS.md` (the auto-loaded file) and `WORKSPACE.md`
+  (the contract) now name the product, **DelfinFlow** ([delfinflow.com](https://delfinflow.com)), the
+  upstream repository and the issue board — so a client's assistant that never opens `README.md` still
+  knows what it is holding and where to send a defect or a request.
+- Dates in the v0.5.x entries corrected to the real delivery date (2026-11-25).
+
+## 0.5.1 — 2026-11-25
 
 - **Access resilience** (`templates/procedures/access-resilience.md`): a second authorised person, parallel
   2FA devices, backup codes and a quick regain path — access must not depend on one person and one device.
@@ -17,7 +25,7 @@ Newest first. Versions are compared against the upstream repository by `scripts/
 - **Two more drill tasks** (second-admin access, next expiring card).
 - **README story**: "why a document is not enough" — the use case, with no personal detail.
 
-## 0.5.0 — 2026-11-18
+## 0.5.0 — 2026-11-25
 
 - **Two-way transfer** (`scripts/bundle-import.sh` + `skills/import-bundle`): a bundle can now be restored
   into a fresh `store/`, so a pack travels out *and* back into a working instance. Checksums verified;

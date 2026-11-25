@@ -12,7 +12,7 @@ another person could continue it, hold it steady, or wind it down.
 | Front page | `README.md` — the page a person arriving for the first time should read |
 | Rules for assistants | `WORKSPACE.md` — and `AGENTS.md`, the name clients load automatically (it points here) |
 | License | Apache-2.0 |
-| Version | `VERSION` (currently 0.5.1) — compare with `scripts/version.sh`, update with `scripts/update.sh` |
+| Version | `VERSION` (currently 0.5.2) — compare with `scripts/version.sh`, update with `scripts/update.sh` |
 | Package | `store/` — **its own git repository**; the bundle is a ZIP exported from it (`charters/package.md`) |
 | What it is not | a will, a power of attorney, legal/financial advice, a password vault, an autonomous account agent |
 

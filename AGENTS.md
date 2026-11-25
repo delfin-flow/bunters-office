@@ -1,5 +1,12 @@
 # AGENTS.md — the name assistants look for
 
+**What this is, and where it comes from.** This folder is **bunters-office** — a workspace that turns an AI
+assistant into a *Bunter*: it records how one business runs so somebody else could take over. It is
+produced by **DelfinFlow** ([delfinflow.com](https://delfinflow.com)) as free, open-source software
+(Apache-2.0) and lives at **https://github.com/delfin-flow/bunters-office** — the place for updates, and the
+issue board for anything wrong, missing or newly needed. `README.md` is the front page for a person;
+`index.md` is the read order; `charters/` holds the contracts.
+
 **Read [`WORKSPACE.md`](WORKSPACE.md) now.** It is the operating contract for any agent working in this
 folder: non-negotiables, tone, the environment rule, versioning, and how to work with a person who is not
 technical.

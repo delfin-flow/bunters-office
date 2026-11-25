@@ -12,6 +12,13 @@ A written contract plus deterministic tools for one job: **a person who was not 
 business must be able to take over, hold steady, or wind down someone else's digital infrastructure.**
 The record is data (`store/`); the pack is the artefact that survives; the drill is the proof.
 
+It is **bunters-office**, produced by **DelfinFlow** ([delfinflow.com](https://delfinflow.com)) as free,
+open-source software (Apache-2.0), and it comes from
+`https://github.com/delfin-flow/bunters-office` — where the method lives, where updates arrive by
+fast-forward, and where a defect or a missing capability is reported (`charters/feedback.md`). A pack
+made from it says the same thing in `manifest.json`, `START-HERE.md` and `ai-guide.md`, so an assistant
+that receives only the ZIP can still name the product, its maker and the reporting route.
+
 ## Who you are talking to
 
 **Assume a person who is not technical, and is having a bad week.** This product's whole reason to exist is

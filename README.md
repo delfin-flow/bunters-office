@@ -122,7 +122,7 @@ Removing it is meant to be simple: two folders, yours to delete (`charters/footp
 
 ## Status — honest
 
-**v0.5.1 (2026-11-18).** The contracts, templates and scripts exist and run. There is **no** account
+**v0.5.2 (2026-11-25).** The contracts, templates and scripts exist and run. There is **no** account
 integration, **no** credential vault, **no** automation of any account, and **no** legal workflow — all
 deliberate. What is proven: the record has a shape, the pack builds and verifies **and imports back into
 an instance** (two-way transfer), the freshness check works, the rotation gate refuses an overdue or

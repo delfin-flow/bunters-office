@@ -3,7 +3,7 @@
 **Scope:** v0 — a workspace contract, templates and deterministic tools for a continuity passport and a
 stranger drill. Status: ⬜ todo · 🔄 in progress · ✅ done.
 
-**Current state (2026-11-18, v0.5.1):** the scaffold exists and its tools run; the workspace compares
+**Current state (2026-11-25, v0.5.2):** the scaffold exists and its tools run; the workspace compares
 itself with upstream and updates by fast-forward; the record lives in its own repository. Installation records the machine
 (`scripts/doctor.sh`) so no session has to guess the platform or the available tools. `scripts/install.sh` creates a
 private record repository from the template (verified in a clean directory), `status.sh` reports stale,
