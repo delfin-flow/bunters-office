@@ -45,8 +45,9 @@ first record section without asking what a word means — or the words are chang
 prints the incoming changelog, asks, fast-forwards, re-probes the machine and states that `store/` was not
 touched. **Acceptance:** a clone at v0.1.0 with a bare upstream tagged v0.2.0 reports "update available",
 fast-forwards on approval, and leaves the package's own repository untouched — verified 2026-11-16 against
-a local bare remote. **Not yet done:** approval policy beyond the prompt, and a release procedure for
-maintainers (tag + changelog entry).
+a local bare remote. **Release procedure:** written in [`docs/RELEASING.md`](../docs/RELEASING.md) (version
+agreement, local proof, annotated tag, notes from the commit range, outside verification); first used for
+`v0.5.2`.
 
 ## S15 — The package is its own repository ✅ (v0)
 

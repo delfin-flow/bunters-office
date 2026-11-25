@@ -10,6 +10,8 @@ Newest first. Versions are compared against the upstream repository by `scripts/
   upstream repository and the issue board — so a client's assistant that never opens `README.md` still
   knows what it is holding and where to send a defect or a request.
 - Dates in the v0.5.x entries corrected to the real delivery date (2026-11-25).
+- **`docs/RELEASING.md`** — the maintainer release procedure the roadmap asked for (S14): version agreement,
+  local proof, annotated tag, notes from the commit range, and verification as a stranger would.
 
 ## 0.5.1 — 2026-11-25
 

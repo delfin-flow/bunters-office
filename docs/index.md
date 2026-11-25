@@ -10,6 +10,7 @@
 | What is done and what is next | [`../roadmap/ROADMAP.md`](../roadmap/ROADMAP.md) |
 | What was delivered in each batch, and what went wrong | [`../roadmap/handoffs/`](../roadmap/handoffs/) |
 | The project shape, the authority of each document, and the deviations from the convention | [`proposal.md`](proposal.md) §7–§8 |
+| How to cut a release — tag, notes, verification | [`RELEASING.md`](RELEASING.md) |
 | What a deployment looks like, and how to start | [`../README.md`](../README.md) |
 | The operating contract for any agent | [`../WORKSPACE.md`](../WORKSPACE.md) |
 
