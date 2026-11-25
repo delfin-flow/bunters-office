@@ -32,9 +32,9 @@ bunters-office-package/
   manifest.json            # schema, generated_at, origin, workspace version, package commit, coverage
   authority-map.md
   business-overview.md     # the profile
-  inventory/               accounts.csv · assets.csv · dependencies.md
+  inventory/               accounts.csv · assets.csv · billing-cards.csv · dependencies.md
   procedures/              one file per procedure, safe-first
-  recovery/                vault locator, key-recovery note, device/MFA, backup/restore
+  recovery/                vault locator, key-recovery note, device/MFA, backup/restore, restore-order
   evidence/                verification-log.csv · drill/
   CHANGELOG.md             # copied from the package: what changed, when
   ai-guide.md              # how a foreign AI should use this
@@ -79,6 +79,22 @@ The one dependency the package has is a **reference**: `https://github.com/delfi
 (produced by DelfinFlow), recorded in the manifest so anyone — human or agent — can find the method,
 report a defect, or fetch the tooling **if they ever want it**. It must never be required to read or act on
 the package.
+
+## Two-way transfer
+
+A bundle is not a one-way door. `scripts/bundle-import.sh` restores a bundle into a fresh `store/`
+(checksums verified, refuses to overwrite an existing record), so the snapshot can become a working
+instance again on another machine (`skills/import-bundle`). Two things a bundle is **not**: a full
+machine transfer — for that, copy `store/` whole, its git repository and remote; and a substitute for
+re-verification — an imported record is a hypothesis until every entry is re-confirmed against the
+provider.
+
+## The rotation gate
+
+A bundle is refused — `scripts/bundle-verify.sh` fails — while any credential in the rotation register is
+overdue or marked `exposed`. The manifest records both counts. Rotation stays a human act; the gate only
+makes the agent *force* it rather than suggest it, with a logged refusal as the sole escape
+(`charters/secrets.md`).
 
 ## What the bundle is not
 

@@ -22,6 +22,13 @@ performs a safe task and you record what happened. The drill is the product's ac
 5. Find the payment provider, state the payout account, and name who may change it.
 6. Find who is legally allowed to act on the bank account, and where the stop point is.
 7. Locate the vault recovery route and state what the alternate would need to open it.
+8. Verify the domain is locked down — transfer lock on, auto-renew on, and the expiry date recorded
+   (`templates/procedures/domain-lockdown.md`).
+9. Restore the record from a bundle on a different machine and confirm `scripts/status.sh` runs
+   (`scripts/bundle-import.sh`) — the return trip is only real when it has been walked.
+10. Confirm a second person (or a second 2FA device) can reach a critical account without the owner
+    (`access-resilience.md`).
+11. State which critical account's billing card expires next, and when (`billing-cards.csv`).
 
 ## Recording
 

@@ -35,6 +35,21 @@ Search the existing issues first: the gap may already be reported, fixed, or del
 **Never included:** anything from `store/` — names, accounts, addresses, locators, credentials, drill
 notes. The record is private; an issue is public. Redact, or describe the shape without the contents.
 
+## Requests are input too
+
+A gap is not always a defect. When the person's situation needs something the workspace does not cover —
+a business structure question, an asset to protect, a flow that is missing — that is a **request**, and it
+uses `.github/ISSUE_TEMPLATE/feature.yml` (one sentence of situation, one of what the assistant should
+have done, a best guess at where it belongs). Requests and compatibility reports are the same channel; a
+request is a defect we have not yet named.
+
+## Traceability — record what you filed
+
+An assistant that opens an issue on the person's behalf records it in `store/adaptations.md` (the
+`Should this go upstream?` line gains the issue number) so the next session can see what was reported and
+not re-file it. The issue text itself stays public and redacted; only the number and a one-line shape
+live in the private record.
+
 ## Maintainer duty (this repository)
 
 Agent-raised issues are the normal, expected input — not noise. Triage means:

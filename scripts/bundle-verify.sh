@@ -54,6 +54,13 @@ else
 fi
 
 say ""
+say "-- rotation gate (no handover while overdue or exposed) --"
+rot_overdue=$(sed -n 's/.*"overdue": \([0-9]*\).*/\1/p' "$PACK/manifest.json" | head -1); rot_overdue=${rot_overdue:-0}
+rot_exposed=$(sed -n 's/.*"exposed": \([0-9]*\).*/\1/p' "$PACK/manifest.json" | head -1); rot_exposed=${rot_exposed:-0}
+if [ "$rot_exposed" -gt 0 ]; then bad "rotation.exposed=$rot_exposed — a credential was exposed and not yet rotated (charters/secrets.md)"; else say "  ok    no exposed credential"; fi
+if [ "$rot_overdue" -gt 0 ]; then bad "rotation.overdue=$rot_overdue — rotate, or record a refusal with a new agreed date, before shipping"; else say "  ok    no overdue credential"; fi
+
+say ""
 say "-- staleness of the pack itself --"
 gen=$(sed -n 's/.*"generated_at":[[:space:]]*"\([^"]*\)".*/\1/p' "$PACK/manifest.json" | head -1)
 if [ -n "${gen:-}" ]; then

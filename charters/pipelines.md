@@ -11,6 +11,7 @@ Bunter must not improvise a flow; it picks one of these, runs the stages in orde
 | **P2** | **Secrets and rotation** | credential references found anywhere | locators in the record + a rotation register + an incident report when a value was exposed | `skills/handle-secrets` |
 | **P3** | **Produce the document** | the record | one readable, printable document a human follows (agent or person makes it the same way) | `scripts/document-export.sh`, `skills/produce-document` |
 | **P4** | **Export the bundle** | the record | the ZIP that travels | `scripts/package-export.sh`, `skills/export-bundle` |
+| **P5** | **Recover** | a loss — machine, account access, owner, or the record itself | the business held steady, then restored, with a restore-order and a logged recovery | `skills/recover`, `scripts/bundle-import.sh` |
 
 ## The invariants that hold across all of them
 
@@ -19,8 +20,8 @@ Bunter must not improvise a flow; it picks one of these, runs the stages in orde
 2. **Every pipeline ends with a commit and a changelog line** in the package (it is its own repository).
 3. **`unknown` is a stage outcome.** A pipeline that completes with gaps is successful; one that fills gaps
    with plausible detail is not.
-4. **P2 runs on the output of P0 and P1**, always — secrets are handled once, deliberately, not whenever
-   they happen to appear.
+4. **P2 runs as a deliberate pass over the output of P0 and P1**, and whenever a credential appears —
+   secrets are handled once, deliberately, not left until they surface (`skills/handle-secrets`).
 5. **Order matters inside P1**: import → verify → quarantine → gaps. Never "clean up" an imported document
    before the person has confirmed what it says.
 

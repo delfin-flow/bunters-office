@@ -1,0 +1,51 @@
+name: Feature or improvement request
+description: Something the assistant should be able to do, or do better — a business situation the workspace does not yet cover.
+title: "[request] "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Requests are expected input — the workspace grows from the situations it does not yet cover.
+
+        **Do not paste anything from `store/`** (names, accounts, addresses, locators, credentials).
+        Describe the shape of the situation, not the private data.
+
+  - type: textarea
+    id: situation
+    attributes:
+      label: The business situation
+      description: One or two sentences. What did the person need to do, or protect, that the record does not cover?
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: What the assistant should have done
+      description: What a good instruction set would have said or provided here.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: scope
+    attributes:
+      label: Where it belongs
+      description: Best guess — a charter, a skill, a script, a template, or a procedure.
+      options:
+        - charter (a rule or contract)
+        - skill (how an agent behaves)
+        - script (a deterministic tool)
+        - template (a record/pack shape)
+        - procedure (a business-specific step)
+        - not sure
+    validations:
+      required: true
+
+  - type: input
+    id: platform
+    attributes:
+      label: Platform (if relevant)
+      placeholder: linux / macos / windows-gitbash / any
+    validations:
+      required: false

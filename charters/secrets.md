@@ -61,3 +61,18 @@ Rotation is a reminder and a checklist, not an automation in v0: the vault rotat
 `last_verified`, the log records it. Backups include the **working machines** — a business is not
 restorable if only its cloud data is copied. A backup that has never been restored is a hope, so the
 record carries the last *restore* date, not just the last *backup* date.
+
+## The rotation gate — force, do not automate
+
+The agent **never** rotates on the owner's behalf — a rotation that locks the owner out of their own
+business is worse than an old password, and the agent cannot log in anyway. What it *does* is **force**:
+
+- `scripts/status.sh` flags anything overdue or due soon, every session.
+- `scripts/package-export.sh` writes `rotation.overdue` and `rotation.exposed` into the manifest.
+- `scripts/bundle-verify.sh` **fails** while either is non-zero — no pack ships, no review completes, no
+  handover is signed off, while a credential is overdue or marked `exposed`.
+
+An `exposed` credential (ever written in plain text) blocks regardless of dates until it has been rotated
+and `last_rotated` updated. The **only** escape from the gate is the owner recording a refusal with a
+reason and a new agreed `next_due` date — that resets the clock honestly; it does not make the credential
+safe, and the record still says so.

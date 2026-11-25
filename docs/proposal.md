@@ -84,7 +84,7 @@ The scripts exist because the arithmetic and packaging must not be done by a mod
 |---|---|---|
 | `README.md` | the front page | **the person**: what this is, who it is for, how to start |
 | `WORKSPACE.md` (with `AGENTS.md` as the auto-loaded stub) | the operating contract | **how an agent behaves** here — see D14 |
-| `charters/` | eleven contracts | **what each practice must be** (record, authority, secrets, package, drill, cadence, first run, alternate, environment, footprint, feedback) |
+| `charters/` | twelve contracts | **what each practice must be** (record, authority, secrets, package, drill, cadence, first run, alternate, environment, footprint, feedback, engagement) |
 | `roadmap/ROADMAP.md` + `roadmap/handoffs/` | work tracking | **what is done and what is next** |
 | `docs/proposal.md` (this file) | the design contract | **what the product is and is not** |
 | `docs/decisions.md` | the ledger | **why** each choice was made, and what would reverse it |
@@ -100,7 +100,7 @@ this proposal stays about intent and evidence.
 | Convention | Here | Why |
 |---|---|---|
 | README is a developer on-ramp, under 80 lines | README is the product's front page, for a non-technical person | the person, not a developer, is the reader (D12) |
-| `AGENTS.md` is the AI operating file, 30–80 lines | `WORKSPACE.md` is the contract; `AGENTS.md` is a stub carrying six rules | a person understands "workspace"; a client auto-loads `AGENTS.md` — one source of truth, one familiar name (D14) |
+| `AGENTS.md` is the AI operating file, 30–80 lines | `WORKSPACE.md` is the contract; `AGENTS.md` is a stub carrying eight rules | a person understands "workspace"; a client auto-loads `AGENTS.md` — one source of truth, one familiar name (D14) |
 | design lives in `docs/proposal.md` | so it does, but `charters/` carries the behavioural contracts | behaviour is the product (§7) |
 | `roadmap/handoffs/` has one log per story | grouped logs, one per delivery batch, named by the stories they cover | the stories in a batch were delivered together and their deviations are shared; a log per story would repeat itself |
 | versioned with a changelog at the package level | the **record** is a separate repository with its own changelog | the workspace updates; the record must not be in its history (D13) |

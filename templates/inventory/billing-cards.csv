@@ -1,0 +1,2 @@
+id,service,card_last4,cardholder,expiry,auto_renew,backup_card,last_verified,notes
+EXAMPLE,domain-registrar,4242,owner,2026-12,no,,2026-11-16,EXAMPLE ROW - replace; auto-renew fails silently when the card expires

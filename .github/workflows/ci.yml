@@ -27,14 +27,19 @@ jobs:
                    charters/record.md charters/authority.md charters/secrets.md charters/package.md \
                    charters/drill.md charters/cadence.md charters/first-run.md charters/secondary.md \
                    charters/environment.md charters/footprint.md charters/pipelines.md charters/bunter.md \
-                   charters/feedback.md \
+                   charters/feedback.md charters/engagement.md \
                    skills/README.md skills/start-record/SKILL.md skills/check-freshness/SKILL.md \
                    skills/export-bundle/SKILL.md skills/update-workspace/SKILL.md skills/run-drill/SKILL.md \
                    skills/import-document/SKILL.md skills/handle-secrets/SKILL.md skills/produce-document/SKILL.md \
+                   skills/import-bundle/SKILL.md skills/recover/SKILL.md \
                    package-skills/README.md package-skills/guide-handover/SKILL.md \
                    package-skills/produce-document/SKILL.md package-skills/write-plainly/SKILL.md \
                    templates/document/HANDOVER.md templates/package/README.md templates/secrets-rotation.csv \
-                   templates/store/footprint.md; do
+                   templates/store/footprint.md templates/store/gaps.md templates/store/coverage.md \
+                   templates/procedures/domain-lockdown.md templates/procedures/email-master-key.md \
+                   templates/procedures/backup-3-2-1.md templates/procedures/access-resilience.md \
+                   templates/procedures/provider-successor-contacts.md templates/procedures/incident-first-24h.md \
+                   templates/inventory/billing-cards.csv .github/ISSUE_TEMPLATE/feature.yml; do
             test -f "$f" || { echo "missing: $f"; exit 1; }
           done
 
@@ -54,6 +59,13 @@ jobs:
           print('broken links:', bad or 'none')
           sys.exit(1 if bad else 0)
           PY
+
+      - name: Version numbers agree
+        run: |
+          set -e
+          v=$(tr -d '[:space:]' < VERSION)
+          grep -q "currently $v" index.md || { echo "index.md version does not match VERSION ($v)"; exit 1; }
+          grep -q "v$v " README.md || { echo "README.md version does not match VERSION ($v)"; exit 1; }
 
       - name: End to end — install, status, export, verify, uninstall
         run: |
@@ -77,3 +89,38 @@ jobs:
           fi
           echo y | bash scripts/uninstall.sh
           git -C store log --oneline | head -1
+
+      - name: Bundle imports back (two-way transfer)
+        run: |
+          set -e
+          work2=$(mktemp -d)
+          cp -a . "$work2/ws"
+          cd "$work2/ws"
+          git config --global user.name ci >/dev/null
+          git config --global user.email ci@example.com >/dev/null
+          bash scripts/install.sh >/dev/null
+          bash scripts/package-export.sh >/dev/null
+          # simulate a new machine: no record at all
+          rm -rf store
+          bash scripts/bundle-import.sh ../bunters-office-package.zip
+          test -f store/profile.md
+          test -f store/settings.yaml
+          test -d store/.git
+          bash scripts/status.sh >/dev/null
+          echo "import round-trip ok"
+
+      - name: Rotation gate refuses an overdue credential
+        run: |
+          set -e
+          work3=$(mktemp -d)
+          cp -a . "$work3/ws"
+          cd "$work3/ws"
+          git config --global user.name ci >/dev/null
+          git config --global user.email ci@example.com >/dev/null
+          bash scripts/install.sh >/dev/null
+          printf 'service,locator,last_rotated,policy_months,next_due,owner,method,notes\ndomain-registrar,bitwarden://x,2020-01-01,6,2020-07-01,owner,provider screen,overdue test\n' > store/secrets-rotation.csv
+          bash scripts/package-export.sh >/dev/null
+          if bash scripts/bundle-verify.sh ../bunters-office-package.zip; then
+            echo "bundle-verify passed an overdue credential — gate broken"; exit 1
+          fi
+          echo "rotation gate ok"

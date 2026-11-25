@@ -119,6 +119,42 @@ check_accounts || true
 check_assets || true
 
 note ""
+note "-- access resilience (charters/record.md) --"
+ACCT="$STORE/inventory/accounts.csv"
+# Billing cards: auto-renew dies silently when a card expires.
+BILL="$STORE/inventory/billing-cards.csv"
+if [ -f "$BILL" ]; then
+  n=0; expiring=0
+  while IFS=, read -r id service last4 holder expiry auto_renew backup verified notes; do
+    [ "$id" = "id" ] && continue
+    [ -z "${id// }" ] && continue
+    case "$id$service$notes" in *EXAMPLE*) continue;; esac
+    n=$((n+1))
+    if [ -n "${expiry// }" ]; then
+      y=${expiry%-*}; m=${expiry#*-}
+      due=$(date -d "$y-$m-01 +1 month" +%s 2>/dev/null || echo 0)
+      if [ "$due" -gt 0 ]; then
+        days=$(( (due - $(date +%s)) / 86400 ))
+        if [ "$days" -lt 0 ]; then note "  CARD EXPIRED  $service ($last4) — expiry $expiry"; problems=$((problems+1)); expiring=$((expiring+1))
+        elif [ "$days" -le 60 ]; then note "  CARD EXPIRING $service ($last4) — $expiry, in $days days"; expiring=$((expiring+1)); fi
+      fi
+    else
+      note "  NO EXPIRY     $service — billing card expiry empty (auto-renew fails silently)"; problems=$((problems+1))
+    fi
+  done < "$BILL"
+  note "  $n billing card(s), $expiring need attention"
+else
+  note "  no billing-cards.csv — copy templates/inventory/billing-cards.csv"; problems=$((problems+1))
+fi
+# Single point of failure: two or more chain accounts recovering through the same route.
+while IFS= read -r route; do
+  [ -z "$route" ] && continue
+  cnt=$(awk -F, -v r="$route" 'NR>1 && $6=="chain" && $9==r {c++} END{print c+0}' "$ACCT")
+  note "  SHARED RECOVERY — $cnt chain account(s) recover via the same route: '$route' (single point of failure)"
+  problems=$((problems+1))
+done < <(awk -F, 'NR>1 && $6=="chain" && $9!="" {print $9}' "$ACCT" 2>/dev/null | sort | uniq -d)
+
+note ""
 note "-- procedures --"
 p=$(find "$STORE/procedures" -name '*.md' 2>/dev/null | wc -l | tr -d ' ')
 if [ "$p" -le 1 ]; then note "  $p file(s) — only the template so far, nothing an alternate can follow yet"; problems=$((problems+1)); else note "  $p file(s)"; fi
@@ -209,6 +245,23 @@ else
   else
     note "  last drill: $drill (${a}m ago)"
   fi
+fi
+
+note ""
+note "-- engagement (charters/engagement.md) --"
+if [ -f "$STORE/gaps.md" ]; then
+  gaps=$(grep -cE '\| (open|refused) \|' "$STORE/gaps.md" 2>/dev/null || true); gaps=${gaps:-0}
+  grep -q 'EXAMPLE' "$STORE/gaps.md" 2>/dev/null && note "  EXAMPLE row still present in gaps.md — replace it"
+  note "  $gaps open/refused gap(s) — propose the highest-consequence one next"; [ "$gaps" -gt 0 ] && problems=$((problems+1))
+else
+  note "  no gap register — run scripts/install.sh again or copy templates/store/gaps.md"; problems=$((problems+1))
+fi
+if [ -f "$STORE/coverage.md" ]; then
+  unknown=$(grep -cE '^\| .* \| unknown \|' "$STORE/coverage.md" 2>/dev/null || true); unknown=${unknown:-0}
+  refused=$(grep -cE '^\| .* \| refused \|' "$STORE/coverage.md" 2>/dev/null || true); refused=${refused:-0}
+  note "  coverage: $unknown unknown, $refused refused business-structure domain(s)"; [ "$unknown" -gt 0 ] && problems=$((problems+1))
+else
+  note "  no coverage checklist — run scripts/install.sh again or copy templates/store/coverage.md"; problems=$((problems+1))
 fi
 
 note ""

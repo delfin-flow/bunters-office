@@ -12,6 +12,8 @@ It has five parts, and each part answers one question.
 | Procedures | `store/procedures/*.md` | the safe step-by-step for one thing, written for someone who was not there |
 | Drill log | `store/drill/*.md` | what a named alternate actually managed to do, and what failed |
 | Rotation register | `store/secrets-rotation.csv` | when each credential was last changed, when it is next due, and how |
+| Gap register | `store/gaps.md` | the open questions the business would suffer without, and their state (`charters/engagement.md`) |
+| Coverage | `store/coverage.md` | whether each business-structure domain is `known`, `unknown` or `refused` |
 
 ## Inventory columns (accounts.csv)
 
@@ -36,6 +38,26 @@ Kinds: `domain`, `site`, `code`, `data`, `device`, `contract`, `licence`, `accou
 **owned asset**, **licence/entitlement**, **service identity** and **provider-held data** distinct —
 they have different successor routes and mixing them is how people end up asserting ownership they do
 not have.
+
+## Billing cards (billing-cards.csv)
+
+`id, service, card_last4, cardholder, expiry, auto_renew, backup_card, last_verified, notes`
+
+The silent killer: **auto-renew dies when the card expires**, and the domain, hosting or SaaS quietly
+lapses. `scripts/status.sh` flags a card expiring within 60 days or already expired. Store only the last
+four digits — a full card number is a credential and never belongs here.
+
+## Procedure templates that protect the infrastructure
+
+Six templates under `templates/procedures/` are filled into `store/procedures/` during the record, each
+with a date and source per row:
+
+- `domain-lockdown.md` — transfer lock, auto-renew, expiry, DNSSEC, off-domain recovery email;
+- `email-master-key.md` — 2FA and a unique vault credential for the mailbox that resets everything;
+- `backup-3-2-1.md` — three copies, two kinds of storage, one offsite, and the last *restore* date;
+- `access-resilience.md` — a second admin, parallel 2FA devices, backup codes, a quick regain path;
+- `provider-successor-contacts.md` — the provider's own successor route (Google IAM, Apple Legacy, …);
+- `incident-first-24h.md` — the first-day runbook for a loss.
 
 ## Rules that keep the record true
 

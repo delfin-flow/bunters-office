@@ -12,9 +12,9 @@ and the person who made it are all gone. They are copied into the bundle at expo
 
 ## What is deliberately NOT here
 
-The package is the **record**, not the workshop. It does not carry: rotation registers and their checks,
-installation, version comparison, updates, freshness arithmetic, the environment probe, or the issue-board
-workflow. Those belong to the workspace, and a bundle that carried them would be a copy of the workshop
+The package is the **record**, not the workshop. It does not carry: the rotation register and its checks
+(the bundle carries the *dates*, never the register or the overdue arithmetic), installation, version
+comparison, updates, freshness arithmetic, the environment probe, or the issue-board workflow. Those belong to the workspace, and a bundle that carried them would be a copy of the workshop
 rotting in a drawer.
 
 If someone needs them, the workspace is one link away — and the bundle says where

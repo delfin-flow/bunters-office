@@ -3,13 +3,13 @@
 **Scope:** v0 — a workspace contract, templates and deterministic tools for a continuity passport and a
 stranger drill. Status: ⬜ todo · 🔄 in progress · ✅ done.
 
-**Current state (2026-11-16, v0.1.0):** the scaffold exists and its tools run; the workspace compares
+**Current state (2026-11-18, v0.5.1):** the scaffold exists and its tools run; the workspace compares
 itself with upstream and updates by fast-forward; the record lives in its own repository. Installation records the machine
 (`scripts/doctor.sh`) so no session has to guess the platform or the available tools. `scripts/install.sh` creates a
-private record repository from the template (verified in a clean directory), `status.sh` reports stale
-and incomplete entries, `package-export.sh` assembles the pack, `bundle-verify.sh` checks checksums, credential-
-shaped material, coverage and age (includes a passing guard test against a planted private key), and
-`uninstall.sh` reverts to template state without touching the record.
+private record repository from the template (verified in a clean directory), `status.sh` reports stale,
+incomplete and uncovered entries, `package-export.sh` assembles the pack, `bundle-verify.sh` checks checksums,
+credential-shaped material, coverage, age **and the rotation gate**, and `bundle-import.sh` brings a pack back
+into a working instance. `uninstall.sh` reverts to template state without touching the record.
 
 ## S1 — The record has a shape ✅ (v0)
 
@@ -105,6 +105,51 @@ verify → uninstall) that also asserts no maintenance skill leaks into a bundle
 `main` with no dependency installation. **Not yet done:** no test asserts the *content* of a generated
 document or the freshness arithmetic (both are deterministic and testable; neither is tested).
 
+## S21 — Two-way transfer: a bundle imports back ✅ (v0.5.0)
+
+`scripts/bundle-import.sh` + `skills/import-bundle` restore a bundle into a fresh `store/` (checksums
+verified, refusal to overwrite an existing record, reconstructed `settings.yaml`, `import:` commit); CI
+proves the round-trip (install → export → import into an empty store → status). **Not yet done:** no real
+bundle has been imported on a stranger's machine (S5's territory).
+
+## S22 — Rotation gate: no handover while overdue or exposed ✅ (v0.5.0)
+
+`package-export.sh` writes `rotation.overdue`/`rotation.exposed` into the manifest; `bundle-verify.sh`
+fails while either is non-zero; `WORKSPACE.md` non-negotiable #9 and `charters/secrets.md` state the gate and
+its single escape (a logged refusal with a new `next_due`). CI plants an overdue row and asserts the verifier
+refuses. **Not yet done:** no real rotation has been forced through it.
+
+## S23 — Engagement contract: the agent pushes ✅ (v0.5.0)
+
+`charters/engagement.md` (the escalation ladder), `store/gaps.md` (the gap register) and
+`store/coverage.md` (business-structure coverage) are counted by `status.sh`; refused chain gaps surface in
+the bundle. **Not yet done:** the ladder has not run across real sittings.
+
+## S24 — Recovery is a named flow (P5) ✅ (v0.5.0)
+
+`skills/recover` + a generated `recovery/restore-order.md` make a loss a pipeline; a drill task proves the
+return trip. **Not yet done:** no real recovery has been run (S5).
+
+## S25 — Feature requests share the issue channel ✅ (v0.5.0)
+
+`.github/ISSUE_TEMPLATE/feature.yml` takes requests beside compatibility reports; `charters/feedback.md`
+states requests are expected input and records issue numbers in `store/adaptations.md` for traceability.
+**Not yet done:** the repo has not triaged a real request (S8).
+
+## S26 — Infrastructure-protection procedure templates ✅ (v0.5.0)
+
+`templates/procedures/domain-lockdown.md`, `email-master-key.md` and `backup-3-2-1.md` give the
+highest-consequence digital assets explicit, dated checklists, wired into `charters/first-run.md` and the
+drill task set. **Not yet done:** none has been filled against a real registrar/provider.
+
+## S27 — Access resilience and infrastructure hardening ✅ (v0.5.1)
+
+`templates/procedures/access-resilience.md`, `provider-successor-contacts.md`, `incident-first-24h.md` and
+`templates/inventory/billing-cards.csv`; `status.sh` flags billing-card expiry (60 days) and shared
+recovery routes (single point of failure); the bundle carries `billing-cards.csv`; two more drill tasks
+(second-admin access, next expiring card) and two more cadence windows (recovery-channel test, card-expiry
+check). **Not yet done:** none has been filled against a real provider.
+
 ## S3 — First-run detection and collection modes ⬜
 
 The agent must detect template / fresh / in-progress and ask **how** the person wants to give data before
@@ -191,6 +236,8 @@ deviations, since the stories in a batch were delivered together).
 | [`03-v0.2.0-pipelines-import-rotation-document.md`](handoffs/03-v0.2.0-pipelines-import-rotation-document.md) | S17 | v0.2.0 |
 | [`04-v0.3.0-self-contained-package.md`](handoffs/04-v0.3.0-self-contained-package.md) | S18 | v0.3.0 |
 | [`05-v0.4.x-zero-footprint.md`](handoffs/05-v0.4.x-zero-footprint.md) | S19 | v0.4.x |
+| [`06-v0.5.0-return-trip-gate-engagement-recovery.md`](handoffs/06-v0.5.0-return-trip-gate-engagement-recovery.md) | S21–S26 | v0.5.0 |
+| [`07-v0.5.1-access-resilience-infra-hardening.md`](handoffs/07-v0.5.1-access-resilience-infra-hardening.md) | S27 | v0.5.1 |
 
 Each log keeps the four sections the methodology asks for — Delivered, Decisions & deviations, Known issues,
 Hand-off to next story — and they are written at delivery time from what actually shipped, never reconstructed

@@ -25,8 +25,8 @@ you (or your assistant) can read line by line.
 
 ## Where this comes from
 
-**bunters-office** is produced by **DelfinFlow** as free, open-source software (Apache-2.0), and lives at
-**https://github.com/delfin-flow/bunters-office**. The README you are reading is the front page;
+**bunters-office** is produced by **DelfinFlow** ([delfinflow.com](https://delfinflow.com)) as free,
+open-source software (Apache-2.0), and lives at **https://github.com/delfin-flow/bunters-office**. The README you are reading is the front page;
 [`WORKSPACE.md`](WORKSPACE.md) is how assistants behave here; [`index.md`](index.md) is the read order for
 anything — human or AI — that lands in this folder.
 
@@ -40,6 +40,19 @@ issue board so the next person does not hit it. See [`charters/feedback.md`](cha
   payments, the accounts — all in one head. If that head is unavailable, the business stops.
 - **The alternate**: partner, family member, colleague or executor who would have to act — and who has no
   idea where anything lives.
+
+## Why a document is not enough
+
+This began with a single document: a file listing the accounts, credentials and infrastructure someone
+would need to take over a business. The document was thorough — and that was the problem. A document is a
+snapshot: it is written once, drifts out of date, and sits unread until the day it is needed, when it is
+suddenly the most important file in the room and also the least trustworthy.
+
+What a business actually needs is not a better document but an **active responsibility** — something that
+watches what it has, what it still needs, what has gone stale, and pushes for the work to stay complete.
+That is what a Bunter is for. The document becomes *input*, not the artefact: it is checked claim by claim,
+credentials are moved out of it and rotated, and the record that remains is kept current by an agent with a
+dated memory, not a person with a good intention.
 
 ## What it is not
 
@@ -109,10 +122,13 @@ Removing it is meant to be simple: two folders, yours to delete (`charters/footp
 
 ## Status — honest
 
-**v0.1.0 (2026-11-16).** The contracts, templates and scripts exist and run. There is **no** account
+**v0.5.1 (2026-11-18).** The contracts, templates and scripts exist and run. There is **no** account
 integration, **no** credential vault, **no** automation of any account, and **no** legal workflow — all
-deliberate. What is proven: the record has a shape, the pack builds and verifies, the freshness check
-works, installation is a script, and the machine's environment is recorded once at installation.
+deliberate. What is proven: the record has a shape, the pack builds and verifies **and imports back into
+an instance** (two-way transfer), the freshness check works, the rotation gate refuses an overdue or
+exposed credential, access resilience (second admins, parallel 2FA devices, backup codes) and billing-card
+expiry are tracked, installation is a script, and the machine's environment is recorded once at
+installation.
 
 Windows and macOS paths are written but **not yet tested** — that is what the feedback board is for.
 

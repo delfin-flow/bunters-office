@@ -3,6 +3,41 @@
 Newest first. Versions are compared against the upstream repository by `scripts/version.sh`; updating is
 `scripts/update.sh` (fast-forward only, never touches `store/`).
 
+## 0.5.1 — 2026-11-18
+
+- **Access resilience** (`templates/procedures/access-resilience.md`): a second authorised person, parallel
+  2FA devices, backup codes and a quick regain path — access must not depend on one person and one device.
+- **Provider successor contacts** (`templates/procedures/provider-successor-contacts.md`): the provider's
+  own route (Google Inactive Account Manager, Apple Legacy Contact, Microsoft, Meta).
+- **First-24h incident runbook** (`templates/procedures/incident-first-24h.md`).
+- **Billing-card register** (`templates/inventory/billing-cards.csv`): `status.sh` flags a card expiring
+  within 60 days or expired; the bundle carries it.
+- **Single-point-of-failure audit**: `status.sh` flags chain accounts that share one recovery route.
+- **Cadence**: a recovery-channel send/receive test window and a billing-card expiry check.
+- **Two more drill tasks** (second-admin access, next expiring card).
+- **README story**: "why a document is not enough" — the use case, with no personal detail.
+
+## 0.5.0 — 2026-11-18
+
+- **Two-way transfer** (`scripts/bundle-import.sh` + `skills/import-bundle`): a bundle can now be restored
+  into a fresh `store/`, so a pack travels out *and* back into a working instance. Checksums verified;
+  refuses an occupied `store/`; reconstructs a minimal `settings.yaml` and commits an `import:` entry.
+- **Rotation gate**: `package-export.sh` writes `rotation.overdue`/`rotation.exposed` into the manifest;
+  `bundle-verify.sh` **fails** while either is non-zero. `WORKSPACE.md` gains a non-negotiable — no pack,
+  review completion or handover sign-off while a credential is overdue or exposed; the only escape is a
+  logged refusal with a new agreed date (`charters/secrets.md`).
+- **Engagement contract** (`charters/engagement.md`, `store/gaps.md`, `store/coverage.md`): the agent acts
+  as an engaged employee — a dated escalation ladder, a gap register, and a business-structure coverage
+  checklist counted by `status.sh` — instead of waiting to be asked.
+- **Recovery flow (P5)** (`skills/recover`, generated `recovery/restore-order.md`): a named pipeline and
+  skill for a loss, and a drill task for restoring from a bundle.
+- **Feature-request route** (`.github/ISSUE_TEMPLATE/feature.yml`): the issue board now takes requests,
+  not only compatibility reports (`charters/feedback.md`).
+- **Origin consistency**: `index.md`/`README.md` versions reconciled to `VERSION`, the DelfinFlow site
+  linked, and CI asserts the versions agree.
+- **Infrastructure-protection procedure templates**: `domain-lockdown.md`, `email-master-key.md`,
+  `backup-3-2-1.md` — the highest-consequence digital assets get explicit, dated checklists.
+
 ## 0.4.3 — 2026-11-17
 
 - **CI added** (`.github/workflows/ci.yml`): shell syntax, every contract/template/skill present, internal

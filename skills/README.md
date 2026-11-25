@@ -17,6 +17,8 @@ cannot be trusted to compute a checksum. Each does what it is good at.
 | [`import-document/`](import-document/SKILL.md) | the person already has a document describing their business (often written by their own assistant) |
 | [`handle-secrets/`](handle-secrets/SKILL.md) | a credential appears anywhere — and on every rotation review |
 | [`produce-document/`](produce-document/SKILL.md) | they want a readable, printable version to follow or hand over |
+| [`import-bundle/`](import-bundle/SKILL.md) | a bundle has to become a working instance again — after a machine loss or a move |
+| [`recover/`](recover/SKILL.md) | something has been lost — the machine, access, the owner, or the record itself |
 
 **People rarely run these scripts themselves.** They say what they want; the assistant runs the script and
 translates the output into plain language — including when the answer is "this is out of date and that is

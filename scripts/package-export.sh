@@ -42,6 +42,8 @@ ASSETS="$STORE/inventory/assets.csv"
 counts() { awk -F, 'NR>1 && $1!="" {n++} END{print n+0}' "$ACCT"; }
 ACCOUNTS=$(counts)
 ASSETS_N=0; [ -f "$ASSETS" ] && ASSETS_N=$(awk -F, 'NR>1 && $1!="" {n++} END{print n+0}' "$ASSETS")
+BILL="$STORE/inventory/billing-cards.csv"
+BILLING_N=0; [ -f "$BILL" ] && BILLING_N=$(awk -F, 'NR>1 && $1!="" {n++} END{print n+0}' "$BILL")
 PROCEDURES=$(find "$STORE/procedures" -name '*.md' 2>/dev/null | wc -l | tr -d ' ')
 DRILLS=$(find "$STORE/drill" -name '*.md' 2>/dev/null | wc -l | tr -d ' ')
 CHAIN_TOTAL=$(awk -F, 'NR>1 && $6=="chain" {n++} END{print n+0}' "$ACCT")
@@ -59,6 +61,25 @@ for d in $(awk -F, 'NR>1 && $14!="" {print $14}' "$ACCT"); do
   [ "$days" -ge 365 ] && STALE=$((STALE+1))
 done
 
+# Rotation gate (charters/secrets.md): count overdue and exposed credentials for the manifest.
+ROT="$STORE/secrets-rotation.csv"
+ROT_OVERDUE=0; ROT_EXPOSED=0
+if [ -f "$ROT" ]; then
+  while IFS=, read -r service locator last_rot policy next_due owner method notes; do
+    [ "$service" = "service" ] && continue
+    [ -z "${service// }" ] && continue
+    case "$service$locator$notes" in *EXAMPLE*) continue;; esac
+    case "$notes" in *xposed*|*XPOSED*) ROT_EXPOSED=$((ROT_EXPOSED+1));; esac
+    due=$next_due
+    if [ -z "${due// }" ] && [ -n "${last_rot// }" ] && [ -n "${policy// }" ]; then
+      due=$(date -d "$last_rot +$policy months" +%F 2>/dev/null || true)
+    fi
+    if [ -n "${due// }" ] && [ "$(date -d "$due" +%s 2>/dev/null || echo 0)" -lt "$(date +%s)" ]; then
+      ROT_OVERDUE=$((ROT_OVERDUE+1))
+    fi
+  done < "$ROT"
+fi
+
 STAGE_ROOT=$(mktemp -d)
 STAGE="$STAGE_ROOT/bunters-office-package"
 mkdir -p "$STAGE"/{inventory,procedures,recovery,evidence/drill,skills,document}
@@ -67,6 +88,7 @@ cp "$STORE/profile.md" "$STAGE/business-overview.md"
 cp "$STORE/authority-map.md" "$STAGE/authority-map.md"
 cp "$ACCT" "$STAGE/inventory/accounts.csv"
 [ -f "$ASSETS" ] && cp "$ASSETS" "$STAGE/inventory/assets.csv"
+[ -f "$BILL" ] && cp "$BILL" "$STAGE/inventory/billing-cards.csv"
 [ -f "$STORE/inventory/dependencies.md" ] && cp "$STORE/inventory/dependencies.md" "$STAGE/inventory/dependencies.md"
 if compgen -G "$STORE/procedures/*.md" >/dev/null; then cp "$STORE/procedures/"*.md "$STAGE/procedures/"; fi
 if compgen -G "$STORE/drill/*.md" >/dev/null; then cp "$STORE/drill/"*.md "$STAGE/evidence/drill/"; fi
@@ -121,6 +143,37 @@ Not yet recorded. What a reader needs, and what the record must eventually conta
 - the machines that would have to be rebuilt, and from what.
 STUB
 
+# Restore order — generated from the dependency map and the owner's stated order (charters/package.md).
+if [ -f "$STORE/inventory/dependencies.md" ]; then
+  cat > "$STAGE/recovery/restore-order.md" <<RESTORE
+# Restore order — what to bring back first
+
+Generated $(date -u +%F) from the record's dependency map and the owner's stated order.
+
+## The critical chain (from inventory, \`criticality=chain\`)
+
+$(awk -F, 'NR>1 && $6=="chain" {printf "- %s (%s) — recovery route: %s\n", $2, $3, $9}' "$ACCT")
+
+## The owner's stated order
+
+$(sed -n '/order the owner would restore/,/^$/p' "$STORE/profile.md" 2>/dev/null || echo "Not recorded — see business-overview.md.")
+
+## The dependency map
+
+$(cat "$STORE/inventory/dependencies.md" 2>/dev/null)
+
+Restore in this order; re-verify each entry against its provider before relying on it.
+RESTORE
+else
+  cat > "$STAGE/recovery/restore-order.md" <<'STUB'
+# Restore order — NOT RECORDED
+
+No dependency map exists, so the order to restore is not recorded. Start with the domain and email
+(\`business-overview.md\` and \`inventory/accounts.csv\`), then re-verify each entry against its provider
+before relying on it.
+STUB
+fi
+
 [ -f "$STORE/CHANGELOG.md" ] && cp "$STORE/CHANGELOG.md" "$STAGE/CHANGELOG.md"
 
 # Rotation register: dates and locators only — never a value (charters/secrets.md).
@@ -173,6 +226,7 @@ cat > "$STAGE/manifest.json" <<MANIFEST
   "origin": {
     "name": "bunters-office",
     "produced_by": "DelfinFlow",
+    "site": "https://delfinflow.com",
     "repo": "https://github.com/delfin-flow/bunters-office",
     "license": "Apache-2.0",
     "issues": "https://github.com/delfin-flow/bunters-office/issues",
@@ -184,9 +238,10 @@ cat > "$STAGE/manifest.json" <<MANIFEST
   "package": { "commit": "${PKG_COMMIT:-unversioned}", "uncommitted_changes": $PKG_DIRTY, "changelog_head": "$(printf '%s' "$CHANGELOG_HEAD" | sed 's/["\\]/ /g')" },
   "entity": { "name": "$(printf '%s' "$ENTITY" | sed 's/["\\]/ /g')", "type": "$ENTITY_TYPE", "jurisdiction": "$JURISDICTION" },
   "alternate": { "name": "$(printf '%s' "$ALTERNATE" | sed 's/["\\]/ /g')", "relationship": "$ALTERNATE_REL", "authority_on_file": "unknown" },
-  "counts": { "accounts": $ACCOUNTS, "assets": $ASSETS_N, "procedures": $PROCEDURES, "drills": $DRILLS },
+  "counts": { "accounts": $ACCOUNTS, "assets": $ASSETS_N, "billing_cards": $BILLING_N, "procedures": $PROCEDURES, "drills": $DRILLS },
   "coverage": { "chain_total": $CHAIN_TOTAL, "chain_verified": $CHAIN_VERIFIED, "unknown_authority": $UNKNOWN_AUTH, "stale_entries": $STALE },
-  "review": { "last_full_review": "$LAST_REVIEW", "last_drill": "$DRILL_LAST" }
+  "review": { "last_full_review": "$LAST_REVIEW", "last_drill": "$DRILL_LAST" },
+  "rotation": { "overdue": $ROT_OVERDUE, "exposed": $ROT_EXPOSED }
 }
 MANIFEST
 

@@ -8,7 +8,7 @@ This file exists only because AI clients conventionally auto-load a file called 
 this and nothing else, do not start work: open `WORKSPACE.md`, and `README.md` if you need to know what the
 thing is.
 
-Six rules, in case you cannot read further — they are the ones that cause damage if broken:
+Eight rules, in case you cannot read further — they are the ones that cause damage if broken:
 
 1. **No impersonation.** Never instruct anyone to log in as, or sign as, another person.
 2. **No legal, financial or tax advice.** Record facts and provider routes; stop at the authority line.
@@ -22,6 +22,8 @@ Six rules, in case you cannot read further — they are the ones that cause dama
    it comes off, ask, and record it in `store/footprint.md`.
 7. **Nothing destructive without an explicit, logged approval** — and never include anything from `store/`
    in a public issue.
+8. **No handover while a credential is overdue or exposed.** `scripts/bundle-verify.sh` fails on it; the
+   agent pushes rotation and never rotates on the owner's behalf (`charters/secrets.md`).
 
 Everything else — who the person is, what to read first, how to check the environment, how to run the
 tools — is in [`WORKSPACE.md`](WORKSPACE.md).

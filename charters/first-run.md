@@ -61,5 +61,28 @@ is a valid answer — record `unknown` and move on. **Never** make them feel beh
 ## Exit criteria for the first sitting
 
 The session is done when, and only when: `store/profile.md` exists, `store/inventory/accounts.csv` has
-at least the domain and hosting rows, `store/authority-map.md` has at least one filled row, and
-`store/log.md` records the session. Then say plainly what is still missing.
+at least the domain and hosting rows, `store/authority-map.md` has at least one filled row,
+`store/gaps.md` and `store/coverage.md` exist (they record what is still open), and `store/log.md` records
+the session. Then say plainly what is still missing.
+
+## Protecting the infrastructure first
+
+Within the critical chain, six assets get explicit, dated checklists before the long tail is touched:
+
+- **the domain** (`templates/procedures/domain-lockdown.md`) — transfer lock, auto-renew, expiry,
+  off-domain recovery email, DNSSEC;
+- **email** (`templates/procedures/email-master-key.md`) — it is the master key that resets everything
+  else, so 2FA and a unique vault credential come first;
+- **backups** (`templates/procedures/backup-3-2-1.md`) — the 3-2-1 rule and the last *restore* date, not
+  only the last backup;
+- **access resilience** (`templates/procedures/access-resilience.md`) — a second admin, parallel 2FA
+  devices, backup codes, and a quick regain path;
+- **provider successor contacts** (`templates/procedures/provider-successor-contacts.md`) — the
+  provider's own "what if I'm gone" route (Google Inactive Account Manager, Apple Legacy Contact, …);
+- **the first 24 hours** (`templates/procedures/incident-first-24h.md`) — the runbook for a loss.
+
+Plus **billing cards** (`templates/inventory/billing-cards.csv`) — auto-renew dies silently when the card
+lapses, so the expiry and a backup card are recorded and `scripts/status.sh` flags them.
+
+Fill each from `templates/procedures/` into `store/procedures/`, with a date and source per row. A gap in
+any of these is a chain gap and follows the escalation ladder (`charters/engagement.md`).

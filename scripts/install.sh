@@ -45,9 +45,16 @@ setup_record() { # $1 = workspace root
   [ -f store/inventory/accounts.csv ] || cp templates/inventory/accounts.csv store/inventory/accounts.csv
   [ -f store/inventory/assets.csv ]   || cp templates/inventory/assets.csv   store/inventory/assets.csv
   [ -f store/inventory/dependencies.md ] || cp templates/inventory/dependencies.md store/inventory/dependencies.md
+  [ -f store/inventory/billing-cards.csv ] || cp templates/inventory/billing-cards.csv store/inventory/billing-cards.csv
   [ -f store/procedures/provider-step.md ] || cp templates/procedures/provider-step.md store/procedures/provider-step.md
   [ -f store/secrets-rotation.csv ] || cp templates/secrets-rotation.csv store/secrets-rotation.csv
   [ -f store/footprint.md ] || cp templates/store/footprint.md store/footprint.md
+  [ -f store/gaps.md ] || cp templates/store/gaps.md store/gaps.md
+  [ -f store/coverage.md ] || cp templates/store/coverage.md store/coverage.md
+
+  # Probe the machine before the first commit so the init commit includes store/environment.md
+  # (a fresh install should be a clean package, not one left uncommitted).
+  bash scripts/doctor.sh || echo "  warning: environment probe did not complete — write 'environment: unverified' in store/settings.yaml"
 
   # The package is its own repository: versioned, changelogged, private (charters/package.md).
   if [ ! -d store/.git ]; then
@@ -71,7 +78,6 @@ setup_record() { # $1 = workspace root
     fi
   fi
 
-  bash scripts/doctor.sh || echo "  warning: environment probe did not complete — write 'environment: unverified' in store/settings.yaml"
 
 }
 

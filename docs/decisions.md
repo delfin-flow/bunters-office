@@ -161,3 +161,53 @@ first, explicit yes, then a row in `store/footprint.md` — which `uninstall.sh`
 **Reverses only by revising this decision**, never by a convenient shortcut mid-session. Reason: the person
 cleaning up may not be the person who ran it, and a hidden dependency found years later is exactly the failure
 this prevents.
+
+## D19 — Transfer works both ways (owner, 2026-11-18)
+
+The bundle travels **out** (`scripts/package-export.sh`) and **back in** (`scripts/bundle-import.sh`):
+checksums verified, refusal to overwrite an existing `store/`, a reconstructed `settings.yaml`, and an
+`import:` commit. The bundle carries the **record, not the workshop** — rotation register, environment probe,
+adaptations, footprint and package remote are deliberately absent, so an import re-establishes them, and a
+true machine-to-machine transfer copies `store/` whole (its own git repository and remote). **Reverses never**;
+the exact file mapping may grow if a bundle layout gains a section.
+
+## D20 — Rotation is a gate, not a suggestion (owner, 2026-11-18)
+
+The agent never rotates on the owner's behalf (a rotation that locks them out is worse than an old password,
+and the agent cannot log in anyway). What it *does* is **force**: `package-export.sh` writes
+`rotation.overdue`/`rotation.exposed` into the manifest, `bundle-verify.sh` fails while either is non-zero,
+and the contract refuses a handover sign-off in that state. The only escape is a logged refusal with a new
+agreed `next_due` date. **Reverses only if** rotation becomes an owner-approved automation — which would still
+need a human gate, not a removal of this one.
+
+## D21 — The agent is an engaged employee, not a form (owner, 2026-11-18)
+
+The record saves the business, and an incomplete record is a dated risk. So the agent drives coverage and
+freshness through a dated escalation ladder (`charters/engagement.md`), a gap register (`store/gaps.md`) and
+a business-structure coverage checklist (`store/coverage.md`), all counted by `status.sh`. It pushes hard on
+the *record* — propose the highest-consequence gap unprompted, re-ask declines, surface refused chain gaps in
+the bundle — and never on the *person*. **Reverses only if** the push proves counterproductive in practice,
+not on principle.
+
+## D22 — Recovery is a named flow, not a set of stubs (owner, 2026-11-18)
+
+P5 (`skills/recover`) plus a generated `recovery/restore-order.md` make "something was lost" a pipeline with
+triage, protection, lawful access recovery, record rebuild and re-verification — instead of a drawer of
+unfilled templates. A drill task for restoring from a bundle proves the return trip. **Reverses never**; the
+flow gains stages as real recoveries are run.
+
+## D23 — Feature requests share the issue channel (owner, 2026-11-18)
+
+A gap is not always a defect: a business situation the workspace does not cover is a **request**, filed via
+`.github/ISSUE_TEMPLATE/feature.yml` beside compatibility reports. Requests are expected input, triaged the
+same way. **Reverses never**; the template's fields may sharpen as requests arrive.
+
+## D24 — Access must not depend on one person and one device (owner, 2026-11-18)
+
+Accounts are lost when they depend on a single person and a single 2FA device. So the record drives, for
+every critical account: a **second authorised person**, **parallel 2FA devices**, **backup codes**, and a
+**quick regain path** (`templates/procedures/access-resilience.md`). Alongside it: provider-native
+successor contacts, a billing-card expiry register (auto-renew dies silently), a first-24h runbook, a
+single-point-of-failure audit (`status.sh` flags chain accounts sharing one recovery route), and a
+recovery-channel send/receive test. All are Markdown + small `status.sh` checks — no new dependencies.
+**Reverses never**; the templates grow as providers add successor routes.

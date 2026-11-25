@@ -7,12 +7,12 @@ another person could continue it, hold it steady, or wind it down.
 |---|---|
 | Name | `bunters-office` |
 | What a Bunter is | the assistant that reads this workspace for one person on one job — [`charters/bunter.md`](charters/bunter.md) |
-| Produced by | **DelfinFlow** |
+| Produced by | **DelfinFlow** — [delfinflow.com](https://delfinflow.com) |
 | Upstream | `https://github.com/delfin-flow/bunters-office` (issues, updates) |
 | Front page | `README.md` — the page a person arriving for the first time should read |
 | Rules for assistants | `WORKSPACE.md` — and `AGENTS.md`, the name clients load automatically (it points here) |
 | License | Apache-2.0 |
-| Version | `VERSION` (currently 0.1.0) — compare with `scripts/version.sh`, update with `scripts/update.sh` |
+| Version | `VERSION` (currently 0.5.1) — compare with `scripts/version.sh`, update with `scripts/update.sh` |
 | Package | `store/` — **its own git repository**; the bundle is a ZIP exported from it (`charters/package.md`) |
 | What it is not | a will, a power of attorney, legal/financial advice, a password vault, an autonomous account agent |
 
@@ -40,6 +40,9 @@ another person could continue it, hold it steady, or wind it down.
 | 18 | `skills/import-document/` | someone already has a document — how to take it in safely |
 | 19 | `docs/proposal.md` | the design contract (§1–§8): the research verdict, the deliberate absences, the document authority table, the deviations |
 | 20 | `roadmap/ROADMAP.md` + `roadmap/handoffs/` | what is done, what is next, what is untested — and one delivery log per batch |
+| 21 | `charters/engagement.md` | how the agent pushes for a complete record — the gap register and the escalation ladder |
+| 22 | `skills/import-bundle/` + `skills/recover/` | the return trip (bundle → working instance) and the recovery flow (P5) |
+| 23 | `templates/procedures/` — domain-lockdown, email-master-key, backup-3-2-1, access-resilience, provider-successor-contacts, incident-first-24h | protecting the highest-consequence digital assets |
 
 ## If you are an AI agent and nobody told you anything
 

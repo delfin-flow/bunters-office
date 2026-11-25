@@ -22,6 +22,8 @@ record carries its own freshness, and this charter defines how it is kept.
 | provider policy links | 12 months, or when a provider announces a change | policies change without notice |
 | credential rotation | per the vault's policy, recorded as a date | rotation that breaks a service is worse than none |
 | full drill | 12 months, or after any significant change | the only real proof |
+| recovery-channel test (the off-domain email actually receives mail) | 6 months | the one address that must survive the domain |
+| billing-card expiry check | 60 days before expiry | auto-renew fails silently when the card lapses |
 | pack rebuild | after every session that changed the record | the pack is generated output |
 
 ## Reminders — ask, do not impose
@@ -52,3 +54,17 @@ same laptop that would be lost in the same event.
 
 Reality wins, immediately and loudly: mark the entry `stale` with the date and the discrepancy, fix the
 procedure, rebuild the pack. Never quietly edit a row to look current.
+
+## Pushing, not waiting
+
+The cadence is a floor, not a target. The agent opens each session from `store/log.md` +
+`scripts/status.sh` + `store/gaps.md` and proposes the highest-consequence open gap **unprompted**, then
+re-asks declined gaps on the next sitting (`charters/engagement.md`). A stale or missing chain entry is a
+specific, dated risk to state — not a footnote.
+
+## Rotation is a gate, not a suggestion
+
+`scripts/status.sh` reports overdue and due-soon credentials every session; `scripts/bundle-verify.sh`
+**refuses** a bundle while any credential is overdue or marked `exposed` (`charters/secrets.md`). The
+agent pushes rotation and never performs it. A refusal is recorded with a reason and a new agreed
+`next_due` date — the clock resets honestly, the risk does not.
